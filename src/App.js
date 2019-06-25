@@ -1,15 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import Welcome from './components/Welcome';
-import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <div>
-      <Container>
-        <Welcome />
-      </Container>
-    </div>
+    <Router>
+      <div>
+        <Route path="/" component={Welcome} />
+      </div>
+    </Router>
   );
 }
 
