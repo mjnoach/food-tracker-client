@@ -12,10 +12,13 @@ code {
     monospace;
 }
 
+.brand {
+  color: rgb(80, 185, 80);
+  font-weight: bold;
+}
+
 .brand-large {
-	color: rgb(80, 185, 80);
-	font-weight: bold;
-	font-size: 80px;
+  font-size: 80px;
 }
 
 .form-group {
