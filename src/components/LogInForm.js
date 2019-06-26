@@ -21,9 +21,11 @@ export default class LogInForm extends Component {
     return(
       <div>
         <Form inline onSubmit={e => this.handleSubmit(e)}>
-          <Form.Control size="sm" type="email" placeholder="Enter email" ref={input => this.email = input} />
-          <Form.Control size="sm" type="password" placeholder="Password" ref={input => this.password = input} />
-          <Button size="sm" variant="outline-success" type="submit">Log In</Button>
+          <Form.Text >
+            <Form.Control size="sm" type="email" placeholder="Enter email" ref={input => this.email = input} />
+            <Form.Control size="sm" type="password" placeholder="Password" ref={input => this.password = input} />
+            <Button size="sm" variant="outline-primary" type="submit">Log In</Button>
+          </Form.Text>
         </Form>
       </div>
     )

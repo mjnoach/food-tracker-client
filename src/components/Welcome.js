@@ -7,8 +7,8 @@ export default class Welcome extends Component {
   render() {
     return(
       <div>
+        <HeaderWelcome />
         <Container>
-          <HeaderWelcome />
           <SignUpForm />
         </Container>
       </div>

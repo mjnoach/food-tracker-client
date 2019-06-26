@@ -21,3 +21,12 @@ code {
 .form-group {
 	max-width: 500px;
 }
+
+.navbar {
+  margin-bottom: 50px;
+   border-bottom: 1px solid rgb(80, 185, 80, 0.1);
+}
+
+.form-inline .form-control {
+  margin-right: 5px;
+}
