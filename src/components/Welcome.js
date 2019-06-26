@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import HeaderWelcome from './HeaderWelcome';
 import SignUpForm from './SignUpForm';
 
 export default class Welcome extends Component {
@@ -7,7 +8,7 @@ export default class Welcome extends Component {
     return(
       <div>
         <Container>
-          <h1 className="brand-large">food tracker</h1>
+          <HeaderWelcome />
           <SignUpForm />
         </Container>
       </div>
