@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { logIn, fetchUserData } from '../utils/user_session';
 import { Form, Button } from 'react-bootstrap';
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
+  signUp = () => {
+    return new Promise((resolve, reject) => {
+      axios.post(process.env.REACT_APP_API_URL + '/users', {
+        email: this.email.value,
+        password: this.password.value,
+        password_confirmation: this.password_confirmation.value
+      })
+        .then(response => {
+          console.log(response);
+
+          let data = JSON.parse(response.config.data);
+          let email = data.email;
+          let password = data.password;
+          resolve([email, password]);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    axios.post(process.env.REACT_APP_API_URL + '/users', {
-      email: this.email.value,
-      password: this.password.value,
-      password_confirmation: this.password_confirmation.value
-    })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    this.signUp()
+      .then(([email, password]) => logIn(email, password)
+        .then(loggedIn => fetchUserData()
+          .then(userData => this.props.history.push('/app'))));
   }
 
   render() {
@@ -42,3 +58,5 @@ export default class SignUpForm extends Component {
     )
   }
 }
+
+export default withRouter(SignUpForm)

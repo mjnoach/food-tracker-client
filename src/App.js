@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import Welcome from './components/Welcome';
 import Home from './components/Home';
+import Supplies from './components/Supplies';
 
 require('dotenv').config()
 
@@ -12,6 +13,7 @@ function App() {
       <div>
         <Route exact path="/" component={Welcome} />
         <Route path="/app" component={Home} />
+        <Route path="/app/supplies" component={Supplies} />
       </div>
     </Router>
   )

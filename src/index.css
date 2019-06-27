@@ -27,9 +27,13 @@ code {
 
 .navbar {
   margin-bottom: 50px;
-   border-bottom: 1px solid rgb(80, 185, 80, 0.1);
+  border-bottom: 1px solid rgb(80, 185, 80, 0.1);
 }
 
 .form-inline .form-control {
   margin-right: 5px;
 }
+
+.dropdown-toggle {
+  color: rgb(80, 185, 80) !important;
+} 
