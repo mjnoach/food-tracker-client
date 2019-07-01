@@ -12,7 +12,7 @@ export function logIn(email, password) {
         resolve(true);
       })
       .catch(error => {
-        console.log(error);
+        console.log('logIn\n', error.response.data.errors);
       });
   });
 }
@@ -25,12 +25,12 @@ export function fetchUserData() {
       }
     })
       .then(response => {
-        console.log(response.data);
+        console.log('fetchUserData\n', response.data);
         sessionStorage.setItem('user', JSON.stringify(response.data));
         resolve(true);
       })
       .catch(error => {
-        console.log(error);
+        console.log('fetchUserData\n', error.response.data.errors);
       });
   })
 }

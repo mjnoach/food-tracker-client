@@ -8,20 +8,20 @@ class SignUpForm extends Component {
   signUp = () => {
     return new Promise((resolve, reject) => {
       axios.post(process.env.REACT_APP_API_URL + '/users', {
+        name: this.name.value,
         email: this.email.value,
         password: this.password.value,
         password_confirmation: this.password_confirmation.value
       })
         .then(response => {
-          console.log(response);
-
+          console.log('SignUpForm\n', response);
           let data = JSON.parse(response.config.data);
           let email = data.email;
           let password = data.password;
           resolve([email, password]);
         })
         .catch(error => {
-          console.log(error);
+          console.log('SignUpForm\n', error.response.data.errors);
         });
     });
   }
@@ -38,17 +38,21 @@ class SignUpForm extends Component {
     return(
       <div>
         <Form onSubmit={e => this.handleSubmit(e)}>
+          <Form.Group controlId="formBasicName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control type="text" placeholder="Name" ref={input => this.name = input} defaultValue="Test" />
+          </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" ref={input => this.email = input} />
+            <Form.Control type="email" placeholder="Enter email" ref={input => this.email = input} defaultValue="test@mail.com" />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" ref={input => this.password = input} />
+            <Form.Control type="password" placeholder="Password" ref={input => this.password = input} defaultValue="password" />
           </Form.Group>
           <Form.Group controlId="formBasicPasswordConfirm">
             <Form.Label>Confirm password</Form.Label>
-            <Form.Control type="password" placeholder="Confirm password" ref={input => this.password_confirmation = input} />
+            <Form.Control type="password" placeholder="Confirm password" ref={input => this.password_confirmation = input} defaultValue="password" />
           </Form.Group>
           <Button variant="primary" type="submit">
             Sign Up
