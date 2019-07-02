@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
+import update from 'immutability-helper';
 import axios from 'axios';
 
 export default class Supplies extends Component {
@@ -24,6 +25,7 @@ export default class Supplies extends Component {
     })
       .then(response => {
         console.log('POST /food_items\n', response);
+        this.updateSuppliesList(response.data);
       })
       .catch(error => {
         console.log('POST /food_items\n', error.response.data.errors);
@@ -46,7 +48,12 @@ export default class Supplies extends Component {
   }
 
   updateSuppliesList = (item) => {
-
+    const supplies = update(this.state.supplies, {$push: [item]});
+    this.setState({supplies: supplies.sort(function(a,b) {
+      if(a.name < b.name) return -1;
+      if(a.name > b.name) return 1;
+      return 0;
+    })});
   }
 
   render() {
