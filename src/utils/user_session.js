@@ -1,14 +1,16 @@
-import axios from 'axios';
+import { axiosInstance } from '../App.js';
 
 export function logIn(email, password) {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API_URL + '/login', {
+    axiosInstance.post('/auth/login', {
     email: email,
     password: password
     })
       .then(response => {
+        console.log('logIn\n', response.data);
         sessionStorage.setItem('token', response.data.token);
         sessionStorage.setItem('uid', response.data.uid);
+        axiosInstance.defaults.headers['Authorization'] = response.data.token;
         resolve(true);
       })
       .catch(error => {
@@ -19,11 +21,8 @@ export function logIn(email, password) {
 
 export function fetchUserData() {
   return new Promise((resolve, reject) => {
-    axios.get(process.env.REACT_APP_API_URL + '/users/' + sessionStorage.getItem('uid'), {
-      headers: {
-        Authorization: sessionStorage.getItem('token')
-      }
-    })
+    axiosInstance.get('/users/' + sessionStorage.getItem('uid')
+    )
       .then(response => {
         console.log('fetchUserData\n', response.data);
         sessionStorage.setItem('user', JSON.stringify(response.data));

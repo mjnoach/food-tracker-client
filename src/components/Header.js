@@ -10,7 +10,7 @@ class Header extends Component {
   }
 
   render() {
-    if (sessionStorage.getItem('token'))
+    if(sessionStorage.getItem('token'))
       return (
         <div>
           <Navbar expand="lg">

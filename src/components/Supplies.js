@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import update from 'immutability-helper';
+import { axiosInstance } from '../App.js';
 import { Container, Table } from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
-import update from 'immutability-helper';
-import axios from 'axios';
 
 export default class Supplies extends Component {
   constructor(props) {
@@ -15,13 +15,9 @@ export default class Supplies extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let itemName = this.itemName.value.charAt(0).toUpperCase() + this.itemName.value.slice(1).toLowerCase();
-    axios.post(process.env.REACT_APP_API_URL + '/food_items', {
+    axiosInstance.post('/food_items', {
       name: itemName,
       quantity: parseInt(this.quantity.value, 10)
-    }, {
-      headers: {
-        Authorization: sessionStorage.getItem('token')
-      }
     })
       .then(response => {
         console.log('POST /food_items\n', response);
@@ -33,17 +29,19 @@ export default class Supplies extends Component {
   }
 
   componentDidMount() {
-    axios.get(process.env.REACT_APP_API_URL + '/food_items', {
-      headers: {
-        Authorization: sessionStorage.getItem('token')
-      }
-    })
+    axiosInstance.get('/food_items')
       .then(response => {
         console.log('GET /food_items\n', response);
         this.setState({supplies: response.data})
       })
       .catch(error => {
-        console.log('POST /food_items\n', error.response.data.errors);
+        console.log('GET /food_items\n', error.response.data);
+        // console.log('GET /food_items\n', error);
+        // if (error.response.data.errors === 'Signature has expired') {          
+        //   sessionStorage.clear();
+        //   alert('Your session has expired\nPlease log in.');
+          this.props.history.push('/');
+        // }
       });
   }
 

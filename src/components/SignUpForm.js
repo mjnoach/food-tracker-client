@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { axiosInstance } from '../App.js';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { logIn, fetchUserData } from '../utils/user_session';
 import { Form, Button } from 'react-bootstrap';
 
 class SignUpForm extends Component {
   signUp = () => {
     return new Promise((resolve, reject) => {
-      axios.post(process.env.REACT_APP_API_URL + '/users', {
+      axiosInstance.post('/users', {
         name: this.name.value,
         email: this.email.value,
         password: this.password.value,
@@ -35,7 +35,7 @@ class SignUpForm extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <Form onSubmit={e => this.handleSubmit(e)}>
           <Form.Group controlId="formBasicName">
