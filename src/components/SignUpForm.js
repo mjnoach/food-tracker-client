@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import { axiosInstance } from '../App.js';
+import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { logIn, fetchUserData } from '../utils/user_session';
+import { logIn, fetchUserData } from '../user_session';
 import { Form, Button } from 'react-bootstrap';
 
 class SignUpForm extends Component {
   signUp = () => {
     return new Promise((resolve, reject) => {
-      axiosInstance.post('/users', {
+      axios.post('/users', {
         name: this.name.value,
         email: this.email.value,
         password: this.password.value,
         password_confirmation: this.password_confirmation.value
       })
         .then(response => {
-          console.log('SignUpForm\n', response);
           let data = JSON.parse(response.config.data);
           let email = data.email;
           let password = data.password;
           resolve([email, password]);
-        })
-        .catch(error => {
-          console.log('SignUpForm\n', error.response.data.errors);
         });
     });
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { logIn, fetchUserData } from '../utils/user_session';
+import { logIn, fetchUserData } from '../user_session';
 import { Form, Button } from 'react-bootstrap';
 
 class LogInForm extends Component {

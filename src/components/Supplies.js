@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
-import { axiosInstance } from '../App.js';
+import axios from 'axios';
 import { Container, Table } from 'react-bootstrap';
 import { Form, Button } from 'react-bootstrap';
 
@@ -15,33 +15,19 @@ export default class Supplies extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let itemName = this.itemName.value.charAt(0).toUpperCase() + this.itemName.value.slice(1).toLowerCase();
-    axiosInstance.post('/food_items', {
+    axios.post('/food_items', {
       name: itemName,
       quantity: parseInt(this.quantity.value, 10)
     })
       .then(response => {
-        console.log('POST /food_items\n', response);
         this.updateSuppliesList(response.data);
-      })
-      .catch(error => {
-        console.log('POST /food_items\n', error.response.data.errors);
       });
   }
 
   componentDidMount() {
-    axiosInstance.get('/food_items')
+    axios.get('/food_items')
       .then(response => {
-        console.log('GET /food_items\n', response);
         this.setState({supplies: response.data})
-      })
-      .catch(error => {
-        console.log('GET /food_items\n', error.response.data);
-        // console.log('GET /food_items\n', error);
-        // if (error.response.data.errors === 'Signature has expired') {          
-        //   sessionStorage.clear();
-        //   alert('Your session has expired\nPlease log in.');
-          this.props.history.push('/');
-        // }
       });
   }
 
@@ -67,6 +53,10 @@ export default class Supplies extends Component {
 
     return (
       <div>
+        {
+          
+        }
+
         <Container>
           <Form onSubmit={this.handleSubmit}>
             <Table striped bordered hover size="sm">

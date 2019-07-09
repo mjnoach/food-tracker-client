@@ -1,28 +1,43 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import './App.css';
+import { logOut } from './user_session';
 import Welcome from './components/Welcome';
 import Home from './components/Home';
 import Supplies from './components/Supplies';
 
 require('dotenv').config();
 
-export const axiosInstance = axios.create({baseURL: process.env.REACT_APP_API_URL});
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-function checkIfLoggedIn() {
-  axiosInstance.interceptors.response.use(null, error => {
-    console.log('error.response', error.response);
+axios.interceptors.request.use(
+  config => {
+    if (config.baseURL === process.env.REACT_APP_API_URL && !config.headers.Authorization) {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = token;
+      }
+    }
+    return config;
+  }, null
+);
+
+axios.interceptors.response.use(response => {
+    const path = response.config.url.replace(axios.defaults.baseURL, '');
+    const method = response.config.method.toUpperCase();
+    console.log(method, path, '\n', response);
+    return response;
+  },
+  error => {
+    const path = error.response.config.url.replace(axios.defaults.baseURL, '');
+    const method = error.response.config.method.toUpperCase();
+    console.log(method, path, '\n', error.response.data.errors);
     if(error.response.status === 401) {
-      sessionStorage.clear();
-      alert('Your session has expired\nPlease log in.');
-      // window.location.replace('/');
+      logOut('Your session has expired\nPlease log in');
     }
     return Promise.reject(error);
-  });
-}
-
-checkIfLoggedIn();
+  }
+);
 
 function App() {
   return (

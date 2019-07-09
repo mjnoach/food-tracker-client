@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { logOut } from '../user_session';
 import { Redirect, Link } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 
 class Header extends Component {
-  handleLogout = () => {
-    sessionStorage.clear();
-    this.props.history.push('/');
-  }
-
   render() {
     if(sessionStorage.getItem('token'))
       return (
@@ -33,7 +29,7 @@ class Header extends Component {
                       JSON.parse(sessionStorage.getItem('user')).email}>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={this.handleLogout}>Log Out</NavDropdown.Item>
+                      <NavDropdown.Item onClick={() => logOut()}>Log Out</NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
                 </Navbar.Text>
