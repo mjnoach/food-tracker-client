@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from 'axios';
 import { logOut } from './user_session';
 import Welcome from './components/Welcome';
 import Home from './components/Home';

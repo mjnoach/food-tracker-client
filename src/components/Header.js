@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { logOut } from '../user_session';
 import { Redirect, Link } from 'react-router-dom';
+import { logOut } from '../user_session';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 
 class Header extends Component {

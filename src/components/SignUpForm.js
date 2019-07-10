@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import { Formik } from 'formik';
 import { logIn, fetchUserData } from '../user_session';
 import { Form, Button } from 'react-bootstrap';
 
@@ -18,7 +19,8 @@ class SignUpForm extends Component {
           let email = data.email;
           let password = data.password;
           resolve([email, password]);
-        });
+        })
+        .catch(error => {});
     });
   }
 

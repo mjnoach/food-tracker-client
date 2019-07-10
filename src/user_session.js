@@ -10,7 +10,8 @@ export function logIn(email, password) {
         sessionStorage.setItem('token', response.data.token);
         sessionStorage.setItem('uid', response.data.uid);
         resolve(true);
-      });
+      })
+      .catch(error => {});
   });
 }
 
@@ -21,7 +22,8 @@ export function fetchUserData() {
       .then(response => {
         sessionStorage.setItem('user', JSON.stringify(response.data));
         resolve(true);
-      });
+      })
+      .catch(error => {});
   })
 }
 

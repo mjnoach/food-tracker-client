@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
 import axios from 'axios';
-import { Container, Table } from 'react-bootstrap';
-import { Form, Button } from 'react-bootstrap';
+import { Container, Table, Form, Button } from 'react-bootstrap';
 
 export default class Supplies extends Component {
   constructor(props) {
@@ -21,14 +20,16 @@ export default class Supplies extends Component {
     })
       .then(response => {
         this.updateSuppliesList(response.data);
-      });
+      })
+      .catch(error => {});
   }
 
   componentDidMount() {
     axios.get('/food_items')
       .then(response => {
         this.setState({supplies: response.data})
-      });
+      })
+      .catch(error => {});
   }
 
   updateSuppliesList = (item) => {
@@ -53,10 +54,6 @@ export default class Supplies extends Component {
 
     return (
       <div>
-        {
-          
-        }
-
         <Container>
           <Form onSubmit={this.handleSubmit}>
             <Table striped bordered hover size="sm">
@@ -70,7 +67,7 @@ export default class Supplies extends Component {
               <thead>
                 <tr>
                   <td>
-                    <Form.Control size="sm" type="text" placeholder="name" ref={input => this.itemName = input} />
+                    <Form.Control size="sm" type="text" placeholder="name" ref={input => this.itemName = input} defaultValue="Test" />
                   </td>
                   <td>
                     <Form.Control size="sm" type="number" placeholder="quantity" ref={input => this.quantity = input} defaultValue="1" />
