@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { logIn, fetchUserData } from '../user_session';
+import { logIn, fetchUserData } from '../../user_session';
 import { Form, Button } from 'react-bootstrap';
 
 const schema = yup.object({

@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from 'axios';
 import { logOut } from './user_session';
-import Welcome from './components/Welcome';
+import Welcome from './components/Welcome/Welcome';
 import Home from './components/Home';
-import Supplies from './components/Supplies';
+import Supplies from './components/Supplies/Supplies';
+import Recipes from './components/Recipes/Recipes';
 
 require('dotenv').config();
 
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/" component={Welcome} />
         <Route path="/app" component={Home} />
         <Route path="/app/supplies" component={Supplies} />
+        <Route path="/app/recipes" component={Recipes} />
       </div>
     </Router>
   )
