@@ -46,98 +46,96 @@ class SignUpForm extends Component {
 
   render() {
     return (
-      <div>
-        <Formik
-          validationSchema={schema}
-          onSubmit={(values, actions) => {
-            this.handleSubmit(values);
-          }}
-          initialValues={{
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-          }}
-        >
-          {({
-            values,
-            errors,
-            status,
-            touched,
-            handleSubmit,
-            handleBlur,
-            handleChange,
-            isSubmitting,
-            isValid,
-          }) => (
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formikName">
-                <Form.Label>Name</Form.Label>
-                <Form.Control 
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={values.name}
-                  onChange={handleChange} 
-                  onBlur={handleBlur}
-                  isInvalid={touched.name && !!errors.name}
-                  isValid={touched.name && !errors.name}
-                />
-                {touched.name && errors.name &&
-                <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>}
-              </Form.Group>
-              <Form.Group controlId="formikEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control 
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  value={values.email}
-                  onChange={handleChange} 
-                  onBlur={handleBlur}
-                  isInvalid={touched.email && !!errors.email}
-                  isValid={touched.email && !errors.email}
-                />
-                {touched.email && errors.email &&
-                <Form.Control.Feedback type='invalid'>{errors.email}</Form.Control.Feedback>}
-              </Form.Group>
-              <Form.Group controlId="formikPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  name="password"
-                  placeholder="Password"
-                  value={values.password}
-                  onChange={handleChange} 
-                  onBlur={handleBlur}
-                  isInvalid={touched.password && !!errors.password}
-                  isValid={touched.password && !errors.password}
-                />
-                {touched.password && errors.password &&
-                <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>}
-              </Form.Group>
-              <Form.Group controlId="formikPasswordConfirmation">
-                <Form.Label>Confirm password</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  name="password_confirmation"
-                  placeholder="Password"
-                  value={values.password_confirmation}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isInvalid={touched.password_confirmation && !!errors.password_confirmation}
-                  isValid={touched.password_confirmation && !errors.password_confirmation}
-                />
-                {touched.password_confirmation && errors.password_confirmation &&
-                <Form.Control.Feedback type='invalid'>{errors.password_confirmation}</Form.Control.Feedback>}
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Sign Up
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+      <Formik
+        validationSchema={schema}
+        onSubmit={(values, actions) => {
+          this.handleSubmit(values);
+        }}
+        initialValues={{
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+        }}
+      >
+        {({
+          values,
+          errors,
+          status,
+          touched,
+          handleSubmit,
+          handleBlur,
+          handleChange,
+          isSubmitting,
+          isValid,
+        }) => (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formikName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control 
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={values.name}
+                onChange={handleChange} 
+                onBlur={handleBlur}
+                isInvalid={touched.name && !!errors.name}
+                isValid={touched.name && !errors.name}
+              />
+              {touched.name && errors.name &&
+              <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>}
+            </Form.Group>
+            <Form.Group controlId="formikEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control 
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value={values.email}
+                onChange={handleChange} 
+                onBlur={handleBlur}
+                isInvalid={touched.email && !!errors.email}
+                isValid={touched.email && !errors.email}
+              />
+              {touched.email && errors.email &&
+              <Form.Control.Feedback type='invalid'>{errors.email}</Form.Control.Feedback>}
+            </Form.Group>
+            <Form.Group controlId="formikPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control 
+                type="password" 
+                name="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleChange} 
+                onBlur={handleBlur}
+                isInvalid={touched.password && !!errors.password}
+                isValid={touched.password && !errors.password}
+              />
+              {touched.password && errors.password &&
+              <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>}
+            </Form.Group>
+            <Form.Group controlId="formikPasswordConfirmation">
+              <Form.Label>Confirm password</Form.Label>
+              <Form.Control 
+                type="password" 
+                name="password_confirmation"
+                placeholder="Password"
+                value={values.password_confirmation}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                isInvalid={touched.password_confirmation && !!errors.password_confirmation}
+                isValid={touched.password_confirmation && !errors.password_confirmation}
+              />
+              {touched.password_confirmation && errors.password_confirmation &&
+              <Form.Control.Feedback type='invalid'>{errors.password_confirmation}</Form.Control.Feedback>}
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Sign Up
+            </Button>
+          </Form>
+        )}
+      </Formik>
     )
   }
 }

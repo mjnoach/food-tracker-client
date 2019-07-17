@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
 import axios from 'axios';
+import { Container, ListGroup } from 'react-bootstrap';
+import NewFoodItem from './NewFoodItem';
 import FoodItem from './FoodItem';
-import { Container, Form, Button } from 'react-bootstrap';
+import './supplies.css';
 
 export default class Supplies extends Component {
   constructor(props) {
@@ -20,17 +22,21 @@ export default class Supplies extends Component {
       .catch(error => {});
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let name = this.name.value.charAt(0).toUpperCase() + this.name.value.slice(1).toLowerCase();
+  addNewItem = (itemName, quantity) => {
+    let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
     axios.post('/food_items', {
       name: name,
-      quantity: parseInt(this.quantity.value, 10)
+      quantity: parseInt(quantity, 10)
     })
       .then(response => {
         this.updateSuppliesList(response.data);
       })
       .catch(error => {});
+  }
+
+  removeFoodItem = (itemId) => {
+    const supplies = this.state.supplies.filter(item => item.id !== itemId);
+    this.setState({supplies: supplies});
   }
 
   updateSuppliesList = (item) => {
@@ -43,28 +49,19 @@ export default class Supplies extends Component {
   }
 
   render() {
-    let items = this.state.supplies.map(item => {
+    const foodItems = this.state.supplies.map(item => {
       return (
-        <FoodItem key={item.id} name={item.name} quantity={item.quantity} />
+        <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}/>
       )
     });
 
     return (
-      <div>
-        <Container>
-          <Form inline onSubmit={this.handleSubmit}>
-            <Form.Control size="sm" type="text" placeholder="name" ref={input => this.name = input} defaultValue="Test" />
-            <Form.Control size="sm" type="number" placeholder="quantity" ref={input => this.quantity = input} defaultValue="1" />
-            <Button size="sm" variant="light" type="submit">Add item</Button>
-          </Form>
-          <b>
-            <div className="float-left">name</div>
-            <div className="float-right">quantity</div>
-          </b>
-          <br/>
-          { items }
-        </Container>
-      </div>
+      <Container className="supplies">
+        <NewFoodItem handleSubmit={this.addNewItem} />
+        <ListGroup className="food-item-list" variant="flush">
+          {foodItems}
+        </ListGroup>
+      </Container>
     )
   }
 }
