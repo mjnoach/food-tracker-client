@@ -6,7 +6,8 @@ export default class FoodItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showButtons: false,
+      active: false,
+      incrementable: true,
       quantity: ''
     }
   }
@@ -40,19 +41,31 @@ export default class FoodItem extends Component {
 
   render() {
     return (
-      <ListGroup.Item className="food-item" onClick={this.incrementQuantity}
-        onMouseEnter={() => this.setState({showButtons: true})}
-        onMouseLeave={() => this.setState({showButtons: false})}>
+      <ListGroup.Item className="food-item" onClick={this.state.incrementable && this.incrementQuantity}
+      onMouseEnter={() => this.setState({active: true})}
+      onMouseLeave={() => this.setState({active: false})}>
         <Row className="align-items-center">
           <Col>
-            <span className="name">{this.props.name}</span>
+            <span className="name" 
+            onMouseEnter={() => this.setState({incrementable: false})}
+            onMouseLeave={() => this.setState({incrementable: true})}>
+              {this.props.name}
+            </span>
           </Col>
           <Col className="text-center">
-            <span className="quantity">{this.state.quantity}</span>
+            <span className="quantity" 
+            onMouseEnter={() => this.setState({incrementable: false})}
+            onMouseLeave={() => this.setState({incrementable: true})}>
+              {this.state.quantity}
+            </span>
           </Col>
           <Col className="text-right">
-            {this.state.showButtons && 
-            <Button size="sm" variant="danger" type="submit" onClick={this.deleteItem}>delete</Button>}
+            {this.state.active && 
+            <Button size="sm" variant="danger" type="submit" onClick={this.deleteItem}
+            onMouseEnter={() => this.setState({incrementable: false})}
+            onMouseLeave={() => this.setState({incrementable: true})}>
+              delete
+            </Button>}
           </Col>
         </Row>
       </ListGroup.Item>

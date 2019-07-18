@@ -55,9 +55,8 @@
   padding: 10px 20px;
 }
 
-
-.food-item .name:hover, 
-.food-item .quantity:hover {
+.food-item:hover .name, 
+.food-item:hover .quantity {
   background-color: #F9F9F9;
 }
 
