@@ -40,7 +40,7 @@
   transition: 0.3s all;
 }
 
-.food-item:hover {
+.food-item-hover {
   cursor: cell;
   transform: scale(1.01);
   background-color: rgba(255, 255, 255);
@@ -49,19 +49,30 @@
   border-color: white;
 }
 
-.food-item .name, 
-.food-item .quantity {
-  cursor: text;
-  padding: 10px 20px;
+.food-item .row {
+  height: 50px;
 }
 
-.food-item:hover .name, 
-.food-item:hover .quantity {
+.food-item .name, 
+.food-item .quantity {
+  padding: 10px;
+}
+
+.food-item input {
   background-color: #F9F9F9;
+  border: none;
+  outline: none;
+}
+
+.food-item input.quantity {
+  text-align: center;
+  width: 100px;
+}
+
+.food-item input.quantity::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
 }
 
 .food-item .btn {
   z-index: 10;
-  margin: 0px;
-  padding: 0px 10px;
 }

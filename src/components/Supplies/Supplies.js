@@ -10,7 +10,8 @@ export default class Supplies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      supplies: []
+      supplies: [],
+      focusLocked: false
     };
   }  
 
@@ -48,10 +49,19 @@ export default class Supplies extends Component {
     })});
   }
 
+  lockItemFocus = () => {
+    this.setState({editingItem: true});
+  }
+
+  unlockItemFocus = () => {
+    this.setState({editingItem: false});
+  }
+
   render() {
     const foodItems = this.state.supplies.map(item => {
       return (
-        <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}/>
+        <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}
+        lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus}/>
       )
     });
 

@@ -6,9 +6,9 @@ export default class FoodItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
-      incrementable: true,
-      quantity: ''
+      mouseOver: false,
+      quantity: '',
+      className: "food-item"
     }
   }
 
@@ -39,31 +39,56 @@ export default class FoodItem extends Component {
       .catch(error => {});
   }
 
+  toggleFocusedOn = () => {
+    this.setState({
+      mouseOver: true,
+      className: "food-item food-item-hover"
+    });
+  }
+
+  toggleFocusedOff = () => {
+    this.setState({
+      mouseOver: false,
+      className: "food-item"
+    });
+  }
+
+  // incrementQuantity = () => {
+  //   axios.put(`/food_items/${this.props.id}`, {
+  //     quantity: this.state.quantity + 1
+  //   })
+  //     .then(response => {
+  //       this.setState({
+  //         quantity: response.data.quantity
+  //       });
+  //     })
+  //     .catch(error => {});
+  // }
+
   render() {
     return (
-      <ListGroup.Item className="food-item" onClick={this.state.incrementable && this.incrementQuantity}
-      onMouseEnter={() => this.setState({active: true})}
-      onMouseLeave={() => this.setState({active: false})}>
+      <ListGroup.Item className={this.state.className} 
+      onClick={null}
+      onMouseEnter={this.toggleFocusedOn} 
+      onMouseLeave={this.toggleFocusedOff}>
         <Row className="align-items-center">
           <Col>
-            <span className="name" 
-            onMouseEnter={() => this.setState({incrementable: false})}
-            onMouseLeave={() => this.setState({incrementable: true})}>
-              {this.props.name}
-            </span>
+            {this.state.mouseOver
+              ? <input type="text" className="name" placeholder={this.props.name}/>
+              : <span className="name">
+                  {this.props.name}
+                </span>}
           </Col>
           <Col className="text-center">
-            <span className="quantity" 
-            onMouseEnter={() => this.setState({incrementable: false})}
-            onMouseLeave={() => this.setState({incrementable: true})}>
-              {this.state.quantity}
-            </span>
+            {this.state.mouseOver
+              ? <input type="number" className="quantity" placeholder={this.state.quantity}/>
+              : <span className="quantity">
+                  {this.state.quantity}
+                </span>}
           </Col>
           <Col className="text-right">
-            {this.state.active && 
-            <Button size="sm" variant="danger" type="submit" onClick={this.deleteItem}
-            onMouseEnter={() => this.setState({incrementable: false})}
-            onMouseLeave={() => this.setState({incrementable: true})}>
+            {this.state.mouseOver && 
+            <Button size="sm" variant="danger" type="submit" onClick={this.deleteItem}>
               delete
             </Button>}
           </Col>
