@@ -6,7 +6,7 @@ import SignUpForm from './SignUpForm';
 
 export default class Welcome extends Component {
   render() {
-    if(sessionStorage.getItem('token'))
+    if (sessionStorage.getItem('token'))
       return (
         <Redirect to='/app' />
       )

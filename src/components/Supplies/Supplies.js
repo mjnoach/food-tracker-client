@@ -43,25 +43,25 @@ export default class Supplies extends Component {
   updateSuppliesList = (item) => {
     const supplies = update(this.state.supplies, {$push: [item]});
     this.setState({supplies: supplies.sort(function(a,b) {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
       return 0;
     })});
   }
 
   lockItemFocus = () => {
-    this.setState({editingItem: true});
+    this.setState({focusLocked: true});
   }
 
   unlockItemFocus = () => {
-    this.setState({editingItem: false});
+    this.setState({focusLocked: false});
   }
 
   render() {
     const foodItems = this.state.supplies.map(item => {
       return (
         <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}
-        lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus}/>
+        lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus} focusLocked={this.state.focusLocked}/>
       )
     });
 

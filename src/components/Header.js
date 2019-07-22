@@ -6,7 +6,7 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 
 class Header extends Component {
   render() {
-    if(sessionStorage.getItem('token'))
+    if (sessionStorage.getItem('token'))
       return (
         <Navbar expand="lg">
           <Container>

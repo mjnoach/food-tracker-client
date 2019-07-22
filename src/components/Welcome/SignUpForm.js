@@ -33,7 +33,9 @@ class SignUpForm extends Component {
           let password = data.password;
           resolve([email, password]);
         })
-        .catch(error => {});
+        .catch(error => {
+          reject(false);
+        });
     });
   }
 

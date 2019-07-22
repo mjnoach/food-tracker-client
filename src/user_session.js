@@ -11,7 +11,9 @@ export function logIn(email, password) {
         sessionStorage.setItem('uid', response.data.uid);
         resolve(true);
       })
-      .catch(error => {});
+      .catch(error => {
+        reject(false);
+      });
   });
 }
 
@@ -23,7 +25,9 @@ export function fetchUserData() {
         sessionStorage.setItem('user', JSON.stringify(response.data));
         resolve(true);
       })
-      .catch(error => {});
+      .catch(error => {
+        reject(false);
+      });
   })
 }
 

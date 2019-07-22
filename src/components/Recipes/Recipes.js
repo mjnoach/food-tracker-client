@@ -24,8 +24,8 @@ export default class Recipes extends Component {
   updateRecipesList = (item) => {
     const recipes = update(this.state.recipes, {$push: [item]});
     this.setState({recipes: recipes.sort(function(a,b) {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
       return 0;
     })});
   }

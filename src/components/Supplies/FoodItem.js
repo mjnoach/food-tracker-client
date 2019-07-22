@@ -7,27 +7,11 @@ export default class FoodItem extends Component {
     super(props);
     this.state = {
       mouseOver: false,
-      quantity: '',
-      className: "food-item"
+      name: this.props.name,
+      quantity: this.props.quantity,
+      className: "food-item",
+      variant: ""
     }
-  }
-
-  componentDidMount() {
-    this.setState({
-      quantity: this.props.quantity
-    });
-  }
-
-  incrementQuantity = () => {
-    axios.put(`/food_items/${this.props.id}`, {
-      quantity: this.state.quantity + 1
-    })
-      .then(response => {
-        this.setState({
-          quantity: response.data.quantity
-        });
-      })
-      .catch(error => {});
   }
 
   deleteItem = (e) => {
@@ -40,6 +24,7 @@ export default class FoodItem extends Component {
   }
 
   toggleFocusedOn = () => {
+    !this.props.focusLocked &&
     this.setState({
       mouseOver: true,
       className: "food-item food-item-hover"
@@ -47,41 +32,102 @@ export default class FoodItem extends Component {
   }
 
   toggleFocusedOff = () => {
+    !this.props.focusLocked &&
     this.setState({
       mouseOver: false,
       className: "food-item"
     });
   }
 
-  // incrementQuantity = () => {
-  //   axios.put(`/food_items/${this.props.id}`, {
-  //     quantity: this.state.quantity + 1
-  //   })
-  //     .then(response => {
-  //       this.setState({
-  //         quantity: response.data.quantity
-  //       });
-  //     })
-  //     .catch(error => {});
-  // }
+  updateFoodItem = (properties) => {
+    return new Promise((resolve, reject) => {
+      axios.put(`/food_items/${this.props.id}`, properties)
+      .then(response => {
+        this.setState({
+          quantity: response.data.quantity
+        });
+        resolve(true);
+      })
+      .catch(error => {
+        reject(Object.keys(properties));
+      });
+    });
+  }
+
+  lockItemFocus = () => {
+    if (!this.props.focusLocked) {
+      this.props.lockItemFocus();
+    }
+  }
+
+  unlockItemFocus = () => {
+    this.props.unlockItemFocus();
+    this.setState({
+      mouseOver: false,
+      className: "food-item"
+    });
+  }
+
+  handleKeyDown = (e) => {
+    e.persist();
+    if (e.key === 'Enter')
+      this.submitEditedItem(e.target);
+  }
+
+  submitEditedItem = (target) => {
+    this.updateFoodItem({[target.name]: target.value})
+      .then(updated => {
+        // this.toggleFocusedOff();
+        this.flashUpdateStatus("success");
+      })
+      .catch(failedProps => {
+        failedProps.forEach(item => {
+          this.setState({[item]: [this.props[item]]});
+        });
+        // this.unlockItemFocus();
+        this.flashUpdateStatus("error");
+      })
+      .finally(() => {
+        this.unlockItemFocus();
+        this.toggleFocusedOff();
+      });
+  }
+
+  flashUpdateStatus = (type = "success") => {
+    if (type === "error")
+      type = "light";
+    this.setState({variant: type});
+    setTimeout(() => this.setState({variant: ""}), 300);
+  }
+
+  handleInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
   render() {
     return (
-      <ListGroup.Item className={this.state.className} 
-      onClick={null}
-      onMouseEnter={this.toggleFocusedOn} 
+      <ListGroup.Item className={this.state.className} variant={this.state.variant}
+      onMouseMove={this.toggleFocusedOn} 
       onMouseLeave={this.toggleFocusedOff}>
         <Row className="align-items-center">
           <Col>
             {this.state.mouseOver
-              ? <input type="text" className="name" placeholder={this.props.name}/>
+              ? <input type="text" name="name" className="name" value={this.state.name} 
+              onChange={this.handleInputChange}
+              onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}
+              onKeyDown={this.handleKeyDown}/>
               : <span className="name">
-                  {this.props.name}
+                  {this.state.name}
                 </span>}
           </Col>
           <Col className="text-center">
             {this.state.mouseOver
-              ? <input type="number" className="quantity" placeholder={this.state.quantity}/>
+              ? <input type="number" name="quantity" className="quantity" value={this.state.quantity} 
+              onChange={this.handleInputChange}
+              onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}
+              onKeyDown={this.handleKeyDown}/>
               : <span className="quantity">
                   {this.state.quantity}
                 </span>}
