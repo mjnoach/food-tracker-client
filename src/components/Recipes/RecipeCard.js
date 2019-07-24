@@ -16,9 +16,9 @@ export default class RecipeCard extends Component {
     const shortDesc = desc && desc.length > 100 
       ? desc.substring(0, 100) + "..." 
       : desc;
-
+    const style = borderStyles[Math.floor(Math.random() * borderStyles.length)];
     return (
-      <Card border={borderStyles[Math.floor(Math.random() * borderStyles.length)]}>
+      <Card border={style}>
         <Card.Body>
           <Card.Title>
             <Link to={`/app/recipes/${this.props.id}`}>{this.props.name}</Link>

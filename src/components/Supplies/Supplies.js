@@ -24,15 +24,18 @@ export default class Supplies extends Component {
   }
 
   addNewItem = (itemName, quantity) => {
-    let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
-    axios.post('/food_items', {
-      name: name,
-      quantity: parseInt(quantity, 10)
-    })
-      .then(response => {
-        this.updateSuppliesList(response.data);
+    return new Promise((resolve, reject) => {
+      let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
+      axios.post('/food_items', {
+        name: name,
+        quantity: parseInt(quantity, 10)
       })
-      .catch(error => {});
+        .then(response => {
+          this.updateSuppliesList(response.data);
+          resolve(true);
+        })
+        .catch(error => {});
+    });
   }
 
   removeFoodItem = (itemId) => {
@@ -67,7 +70,7 @@ export default class Supplies extends Component {
 
     return (
       <Container className="supplies">
-        <NewFoodItem handleSubmit={this.addNewItem} />
+        <NewFoodItem addNewItem={this.addNewItem} />
         <ListGroup className="food-item-list" variant="flush">
           {foodItems}
         </ListGroup>

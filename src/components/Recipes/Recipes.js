@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 import { Container, CardColumns } from 'react-bootstrap';
 import RecipeCard from './RecipeCard';
 import NewRecipe from './NewRecipe';
+import './recipes.css';
 
 export default class Recipes extends Component {
   constructor(props) {
@@ -38,7 +39,6 @@ export default class Recipes extends Component {
     return (
       <Container>
         <CardColumns>
-          <NewRecipe />
           {recipes}
         </CardColumns>
       </Container>
