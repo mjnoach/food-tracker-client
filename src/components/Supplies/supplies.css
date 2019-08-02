@@ -13,7 +13,6 @@
 .new-food-item input {
   border: none;
   outline: none;
-  /*border-bottom: 1px solid lightgrey;*/
   padding: 5px 10px;
   background-color: #F9F9F9;
   margin: 10px;

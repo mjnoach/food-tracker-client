@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import update from 'immutability-helper';
-import { Container, CardColumns } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import RecipeCard from './RecipeCard';
-import NewRecipe from './NewRecipe';
+// import NewRecipe from './NewRecipe';
 import './recipes.css';
 
 export default class Recipes extends Component {
@@ -38,9 +38,7 @@ export default class Recipes extends Component {
 
     return (
       <Container>
-        <CardColumns>
-          {recipes}
-        </CardColumns>
+        {recipes}
       </Container>
     )
   }

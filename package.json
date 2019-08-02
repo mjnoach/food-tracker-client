@@ -1,5 +1,5 @@
 {
-  "name": "food-tracker-app",
+  "name": "food-tracker-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
