@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, ListGroup } from 'react-bootstrap';
 import NewFoodItem from './NewFoodItem';
 import FoodItem from './FoodItem';
-import './supplies.css';
+import '../../stylesheets/supplies.css';
 
 export default class Supplies extends Component {
   constructor(props) {

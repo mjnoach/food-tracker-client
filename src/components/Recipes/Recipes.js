@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 import { Container } from 'react-bootstrap';
 import RecipeCard from './RecipeCard';
 // import NewRecipe from './NewRecipe';
-import './recipes.css';
+import '../../stylesheets/recipes.css';
 
 export default class Recipes extends Component {
   constructor(props) {
