@@ -83,13 +83,23 @@
   animation: fadeOut 0.3s ease-in-out both;
 }
 
-.new-recipe-btn {
-  background-color: white !important;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08) !important;
-  margin-bottom: 20px;
-  font-size: 20px !important;
-  /*height: 63px;*/
+.new-recipe-btn-wrapper {
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  /*font-size: 22px;*/
+  /*display: inline-block;*/
+  padding: 10px 320px 10px 10px;
 }
 
-.new-recipe-btn:hover {
+.new-recipe-btn {
+/*background-color: white !important;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08) !important;
+  margin-bottom: 20px;
+  font-size: 20px !important;*/
+  /*height: 63px;*/
+
+  border: none;
+  outline: none;
+  background-color: #F9F9F9;
+  height: 42px;
 }

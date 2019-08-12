@@ -3,13 +3,15 @@ import axios from 'axios';
 import update from 'immutability-helper';
 import { Container, Button } from 'react-bootstrap';
 import RecipeCard from './RecipeCard';
+import NewRecipe from './NewRecipe';
 import '../../stylesheets/recipes.css';
 
 export default class Recipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: []
+      recipes: [],
+      displayForm: false
     };
   }
 
@@ -31,19 +33,25 @@ export default class Recipes extends Component {
   }
 
   newRecipe = () => {
-    
+    this.setState({displayForm: true});
   }
 
   render() {
-    let recipes = this.state.recipes.map(item => (
+    const recipes = this.state.recipes.map(item => (
       <RecipeCard key={item.id} id={item.id} name={item.name} description={item.description} />
     ));
 
-    return (
-      <Container>
-        <Button className="new-recipe-btn" variant="light" type="submit" onClick={this.newRecipe}>New Recipe</Button>
-        {recipes}
-      </Container>
-    )
+    return this.state.displayForm
+      ? <Container>
+          <NewRecipe />
+        </Container>
+      : <Container>
+          <div className="new-recipe-btn-wrapper">
+            <Button className="new-recipe-btn" variant="light" type="submit" onClick={this.newRecipe}>
+              New Recipe
+            </Button>
+          </div>
+          {recipes}
+        </Container>
   }
 }
