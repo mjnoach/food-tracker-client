@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import { Card, Nav, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { Card, Nav, Dropdown, DropdownButton } from 'react-bootstrap';
 
 export default class RecipeCard extends Component {
 
@@ -22,6 +22,14 @@ export default class RecipeCard extends Component {
     }, false);
   }
 
+  deleteRecipe = () => {
+    axios.delete(`/recipes/${this.props.id}`)
+      .then(response => {
+        this.props.removeRecipe(this.props.id);
+      })
+      .catch(error => {});
+  }
+
   render() {
     return (
       <div>
@@ -40,22 +48,18 @@ export default class RecipeCard extends Component {
                   Ingredients
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as="div" href="#third" className="header-tab">
-                  Preparation
-                </Nav.Link>
-              </Nav.Item>
             </Nav>
-            <button type="button">∨</button>
+            <DropdownButton className="recipe-optioins-btn" variant="light" size="sm" title="Options">
+              <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={this.deleteRecipe}>Delete</Dropdown.Item>
+            </DropdownButton>
           </Card.Header> 
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
             <Card.Text>
               {this.props.description}
             </Card.Text>
-            <Button className="show-more" variant="link">
-              Show more
-            </Button>
           </Card.Body>
         </Card>
       </div>

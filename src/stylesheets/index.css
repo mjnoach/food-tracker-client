@@ -34,48 +34,6 @@ code {
   margin-right: 5px;
 }
 
-.dropdown-toggle {
+.navbar .dropdown-toggle {
   color: rgb(80, 185, 80) !important;
-} 
-
-.card {
-  margin-top: 10px;
-}
-
-.card h4, h5 {
-  margin: 0px;
-}
-
-.new-recipe-add-icon {
-  font-size: 36px;
-  font-style: normal;
-  font-weight: lighter;
-  transition: 0.3s all;
-  position: absolute;
-  right: 30px;
-  top: 20px;
-}
-
-.new-recipe-add-icon:hover {
-  cursor: pointer;
-  font-size: 45px;
-  right: 27px;
-  top: 16px;
-}
-
-.new-recipe-name {
-  border: none;
-  outline: none;
-  font-size: 30px;
-}
-
-.new-recipe-description {
-  border: none;
-  outline: none;
-  font-size: 20px;
-}
-
-.new-recipe button {
-  border: none;
-  outline: none;
 }

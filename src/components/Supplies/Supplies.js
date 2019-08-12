@@ -70,7 +70,7 @@ export default class Supplies extends Component {
 
     return (
       <Container className="supplies">
-        <NewFoodItem addNewItem={this.addNewItem} />
+        <NewFoodItem addNewItem={this.addNewItem}/>
         <ListGroup className="food-item-list" variant="flush">
           {foodItems}
         </ListGroup>
