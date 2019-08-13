@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
 
 export default class RecipeForm extends Component {
+  
+  
   handleSubmit = (e) => {
     e.preventDefault();
     let name = this.name.value.charAt(0).toUpperCase() + this.name.value.slice(1).toLowerCase();

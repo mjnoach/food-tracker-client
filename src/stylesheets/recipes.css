@@ -1,65 +1,26 @@
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 0.3; }
+.recipes-list {
+  padding-bottom: 100px;
 }
 
-@keyframes fadeOut {
-  from { opacity: 0.3; }
-  to { opacity: 0; }
+.recipe-item {
+  transition: 0.3s all;
+  padding: 10px;
 }
 
-@keyframes boxShadowFadeIn {
-  from { box-shadow: none; }
-  to { box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.3); }
+.recipe-item:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);  
+  z-index: 1;
 }
 
-@keyframes boxShadowFadeOut {
-  from { box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.3); }
-  to { box-shadow: none; }
+.recipe-item-link,
+.recipe-item-link:hover {
+  text-decoration: none;
+  color: #000;
 }
 
-.recipe {
-	margin-bottom: 40px;
-  border: none !important;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
-}
-
-.recipe .card-header {
-	background-color: white;
-}
-
-.recipe .card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.recipe .edit-btn,
-.recipe .apply-btn {
-  margin: -2px;
-  width: 60px;
-}
-
-.recipe .header-tab {
-  cursor: pointer;
-  color: #007BFF;
-}
-
-.recipe .show-more {
-  padding: 0px;
-}
-
-.recipe-optioins-btn {
-  margin: -2px;
-}
-
-.recipe-fade-in {
-  z-index: 11;
-  animation: boxShadowFadeIn 0.2s ease-in-out both;
-}
-
-.recipe-fade-out {
-  z-index: none;
-  animation: boxShadowFadeOut 0.2s ease-in-out both;
+.recipe-item .row {
+  height: 50px;    
 }
 
 .backdrop {
@@ -70,14 +31,6 @@
   top: 0px;
   left: 0px;
   background-color: #000;
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out both;
-}
-
-.fade-out {
-  animation: fadeOut 0.3s ease-in-out both;
 }
 
 .new-recipe-btn-wrapper {

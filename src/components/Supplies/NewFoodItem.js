@@ -16,7 +16,7 @@ export default class NewFoodItem extends Component {
       <div className="new-food-item">
         <Form className="align-middle" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Name" ref={input => this.name = input}/>
-          <input type="number" placeholder="Quantity" ref={input => this.quantity = input} defaultValue='1'/>
+          <input type="number" placeholder="Quantity" className="quantity" ref={input => this.quantity = input} defaultValue='1'/>
           <Button size="sm" variant="light" type="submit">Add</Button>
         </Form>
       </div>

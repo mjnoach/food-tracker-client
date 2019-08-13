@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Container } from 'react-bootstrap';
 
 export default class Recipe extends Component {
   constructor(props) {
@@ -21,17 +22,25 @@ export default class Recipe extends Component {
       .catch(error => {});
   }
 
+  deleteRecipe = () => {
+    axios.delete(`/recipes/${this.props.id}`)
+      .then(response => {
+        this.props.removeRecipe(this.props.id);
+      })
+      .catch(error => {});
+  }
+
   render() {
     return (
-      <div>
-        <h2 className="">{this.state.name}</h2>
+      <Container>
+        <h4>
+          {this.state.name}
+        </h4>
         <br/>
-        lista składników
-        <br/>
-        opis
-        <br/>
-        przepis
-      </div>
+        <p>
+          {this.state.description}
+        </p>
+      </Container>
     )
   }
-} 
+}
