@@ -30,6 +30,10 @@ export default class RecipeCard extends Component {
       .catch(error => {});
   }
 
+  editRecipe = () => {
+    
+  }
+
   render() {
     return (
       <div>
@@ -50,7 +54,7 @@ export default class RecipeCard extends Component {
               </Nav.Item>
             </Nav>
             <DropdownButton className="recipe-optioins-btn" variant="light" size="sm" title="Options">
-              <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+              <Dropdown.Item onClick={this.editRecipe}>Edit</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={this.deleteRecipe}>Delete</Dropdown.Item>
             </DropdownButton>

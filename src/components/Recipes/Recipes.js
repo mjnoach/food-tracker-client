@@ -37,7 +37,7 @@ export default class Recipes extends Component {
     })});
   }
 
-  newRecipe = () => {
+  displayForm = () => {
     this.setState({displayForm: true});
   }
 
@@ -56,7 +56,7 @@ export default class Recipes extends Component {
         </Container>
       : <Container>
           <div className="new-recipe-btn-wrapper">
-            <Button className="new-recipe-btn" variant="light" type="submit" onClick={this.newRecipe}>
+            <Button className="new-recipe-btn" variant="light" type="submit" onClick={this.displayForm}>
               New Recipe
             </Button>
           </div>

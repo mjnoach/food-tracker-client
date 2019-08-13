@@ -31,6 +31,10 @@
   margin-top: -5px;
 }
 
+.new-food-item input.quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .food-item-list {
   padding-bottom: 100px;
   z-index: 8;
@@ -69,7 +73,7 @@
   width: 100px;
 }
 
-.food-item input.quantity::-webkit-inner-spin-button { 
+.food-item input.quantity::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 

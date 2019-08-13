@@ -12,7 +12,7 @@ class Header extends Component {
           <Container>
             <Navbar.Brand>
               <Link to='/app' className="nav-link">
-                <h1 className="brand">food tracker</h1>
+                <h1 className="brand">ft</h1>
               </Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
