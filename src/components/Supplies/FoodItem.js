@@ -75,8 +75,8 @@ export default class FoodItem extends Component {
 
   submitEditedItem = () => {
     if (this.state.edited) {
-      let name = this.nameInput.current;
-      let quantity = this.quantityInput.current
+      const name = this.nameInput.current;
+      const quantity = this.quantityInput.current;
       this.updateFoodItem({
         [name.name]: name.value,
         [quantity.name]: quantity.value
@@ -115,6 +115,12 @@ export default class FoodItem extends Component {
       edited: true
     });
   }
+
+  // foodItemWasEdited = () => {
+  //   return 
+  //     (this.state.name === this.props.name) || 
+  //     (this.state.quantity === this.props.quantity);
+  // }
 
   render() {
     return (

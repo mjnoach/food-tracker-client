@@ -55,8 +55,8 @@ export default class Recipes extends Component {
           <RecipeForm hideForm={this.hideForm} updateRecipesList={this.updateRecipesList}/>
         </Container>
       : <Container>
-          <div className="new-recipe-btn-wrapper">
-            <Button className="new-recipe-btn" variant="light" type="submit" onClick={this.displayForm}>
+          <div className="btn-wrapper">
+            <Button className="new-recipe-btn" variant="light" onClick={this.displayForm}>
               New Recipe
             </Button>
           </div>
