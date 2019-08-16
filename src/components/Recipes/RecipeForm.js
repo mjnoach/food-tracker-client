@@ -15,8 +15,7 @@ class RecipeForm extends Component {
     this.descriptionInput = React.createRef();
   }
 
-  createRecipe = (e) => {
-    e.preventDefault();
+  createRecipe = () => {
     let name = this.nameInput.value.charAt(0).toUpperCase() + this.nameInput.value.slice(1).toLowerCase();
     let description = this.descriptionInput.value
       ? this.descriptionInput.value.charAt(0).toUpperCase() + this.descriptionInput.value.slice(1).toLowerCase()
