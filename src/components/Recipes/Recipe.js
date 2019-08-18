@@ -10,6 +10,7 @@ export default class Recipe extends Component {
       id: '',
       name: '',
       description: '',
+      ingredients: [],
       displayForm: false
     };
   }
@@ -21,6 +22,7 @@ export default class Recipe extends Component {
           id: response.data.id,
           name: response.data.name,
           description: response.data.description,
+          ingredients: response.data.ingredients,
         })
       })
       .catch(error => {});
@@ -45,6 +47,10 @@ export default class Recipe extends Component {
   }
 
   render() {
+    const ingredients = this.state.ingredients.map((item) => 
+      <li>{item.name}</li>
+    );
+
     return this.state.displayForm
       ? <Container>
           <RecipeForm hideForm={this.hideForm} editing={true} name={this.state.name} description={this.state.description} id={this.state.id}/>
@@ -61,7 +67,13 @@ export default class Recipe extends Component {
           <h4>
             {this.state.name}
           </h4>
-          <br/>
+          <hr/>
+          <h6>Ingredients:</h6>  
+          <p>
+            <ul>{ingredients}</ul>
+          </p>
+          <hr/>
+          <h6>Description:</h6>  
           <p>
             {this.state.description}
           </p>
