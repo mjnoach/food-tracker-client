@@ -48,7 +48,7 @@ export default class Recipe extends Component {
 
   render() {
     const ingredients = this.state.ingredients.map((item) => 
-      <li>{item.name}</li>
+      <li key={item.id}>{item.name}</li>
     );
 
     return this.state.displayForm
@@ -69,9 +69,7 @@ export default class Recipe extends Component {
           </h4>
           <hr/>
           <h6>Ingredients:</h6>  
-          <p>
-            <ul>{ingredients}</ul>
-          </p>
+          <ul>{ingredients}</ul>
           <hr/>
           <h6>Description:</h6>  
           <p>
