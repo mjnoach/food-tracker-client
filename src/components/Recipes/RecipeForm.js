@@ -10,14 +10,13 @@ class RecipeForm extends Component {
       editing: !!this.props.editing,
       name: this.props.name,
       description: this.props.description,
-      ingredients: []
+      foodItems: [],
+      ingredients: this.props.ingredients || [],
     }
-    this.name = React.createRef();
-    this.description = React.createRef();
   }
 
   componentDidMount() {
-    this.fetchIngredients();
+    this.fetchFoodItems();
   }
 
   createRecipe = () => {
@@ -25,15 +24,10 @@ class RecipeForm extends Component {
     const description = this.description.value
       ? this.description.value.charAt(0).toUpperCase() + this.description.value.slice(1).toLowerCase()
       : null;
-    const collection = this.ingredients.selectedOptions;
-    const ingredients = [];
-    for (let i = 0; i < collection.length; i++) {
-      ingredients.push(collection[i].getAttribute("id"));
-    }
     axios.post('/recipes', {
       name: name,
       description: description,
-      ingredients: ingredients
+      ingredients: this.state.ingredients
     })
       .then(response => {
         this.props.updateRecipesList(response.data);
@@ -54,23 +48,16 @@ class RecipeForm extends Component {
     });
   }
 
-  recipeWasEdited = () => {
-    return (this.state.name !== this.props.name) || (this.state.description !== this.props.description);
-  }
-
   handleEdit = () => {
-    if (this.recipeWasEdited()) {
-      const name = this.name;
-      const description = this.description;
-      this.updateRecipe({
-        [name.name]: name.value,
-        [description.name]: description.value
+    this.updateRecipe({
+      name: this.name.value,
+      description: this.description.value,
+      ingredients: this.state.ingredients
+    })
+      .then(updated => {
+        this.props.history.push('/app/recipes');
       })
-        .then(updated => {
-          this.props.history.push('/app/recipes');
-        })
-        .catch({});
-    }
+      .catch({});
   }
 
   handleInputChange = (e) => {
@@ -87,20 +74,35 @@ class RecipeForm extends Component {
       : this.createRecipe()
   }
 
-  fetchIngredients = () => {
+  fetchFoodItems = () => {
     axios.get('/food_items')
       .then(response => {
-        this.setState({ingredients: response.data});
+        this.setState({foodItems: response.data});
       })
       .catch(error => {});
   }
 
+  handleChange = (e) => {
+    e.preventDefault();
+  }
+
+  handleClick = (e) => {
+    let selected = this.state.ingredients;
+    const ingrId = e.target.value;
+    if (selected.includes(ingrId)) {
+      selected = selected.filter(item => item !== ingrId);
+      this.setState({ingredients: selected});
+    }
+    else {
+      selected.push(ingrId);
+      this.setState({ingredients: selected});
+    }
+  }
+
   render() {
-    const ingredients = this.state.ingredients.map((ingredient) => {
-      return (
-        <option key={ingredient.id} id={ingredient.id}>{ingredient.name}</option>
-      )
-    });
+    const foodItems = this.state.foodItems.map((item) =>
+      <option key={item.id} value={item.id} onClick={this.handleClick}>{item.name}</option>
+    );
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -115,9 +117,9 @@ class RecipeForm extends Component {
           onChange={this.handleInputChange}/>
         </Form.Group>
         <Form.Group>
-          <Form.Label>Ingredients (select multiple with 'Ctrl + click')</Form.Label>
-          <Form.Control as="select" multiple name="ingredients" ref={input => this.ingredients = input}>
-            {ingredients}
+          <Form.Label>Ingredients</Form.Label>
+          <Form.Control as="select" multiple name="foodItems" value={this.state.ingredients} onChange={this.handleChange} ref={input => this.foodItems = input}>
+            {foodItems}
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">

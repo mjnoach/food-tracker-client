@@ -47,13 +47,16 @@ export default class Recipe extends Component {
   }
 
   render() {
-    const ingredients = this.state.ingredients.map((item) => 
-      <li key={item.id}>{item.name}</li>
-    );
+    const ingredientsIds = [];
+    const ingredients = this.state.ingredients.map((item) => {
+      ingredientsIds.push(item.id.toString());
+      return <li key={item.id}>{item.name}</li>
+    });
 
     return this.state.displayForm
       ? <Container>
-          <RecipeForm hideForm={this.hideForm} editing={true} name={this.state.name} description={this.state.description} id={this.state.id}/>
+          <RecipeForm hideForm={this.hideForm} editing={true} name={this.state.name} description={this.state.description} id={this.state.id}
+          ingredients={ingredientsIds}/>
         </Container>
       : <Container>
           <div className="btn-wrapper">
