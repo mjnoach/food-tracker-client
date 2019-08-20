@@ -55,7 +55,9 @@ class RecipeForm extends Component {
       ingredients: this.state.ingredients
     })
       .then(updated => {
-        this.props.history.push('/app/recipes');
+        const url = window.location.pathname;
+        this.props.history.push({ pathname: "/empty" });
+        this.props.history.replace({ pathname: url });
       })
       .catch({});
   }
