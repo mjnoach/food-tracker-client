@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Supplies from './components/Supplies/Supplies';
 import Recipes from './components/Recipes/Recipes';
 import Recipe from './components/Recipes/Recipe';
+import MealPlan from './components/MealPlan/MealPlan';
 
 require('dotenv').config();
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/app/supplies" component={Supplies} />
         <Route exact path="/app/recipes" component={Recipes} />
         <Route path="/app/recipes/:id" component={Recipe} />
+        <Route path="/app/meal-plan" component={MealPlan} />
       </div>
     </Router>
   )
