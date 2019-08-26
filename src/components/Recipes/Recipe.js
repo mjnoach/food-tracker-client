@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Form } from 'react-bootstrap';
 import RecipeForm from './RecipeForm';
 
 export default class Recipe extends Component {
@@ -54,18 +54,20 @@ export default class Recipe extends Component {
     });
 
     return this.state.displayForm
-      ? <Container>
+      ? <Container className="recipe-form">
           <RecipeForm hideForm={this.hideForm} editing={true} name={this.state.name} description={this.state.description} id={this.state.id}
           ingredients={ingredientsIds}/>
         </Container>
-      : <Container>
-          <div className="btn-wrapper">
-            <Button className="recipe-btn" variant="light" onClick={this.displayForm}>
-              Edit
-            </Button>
-            <Button className="recipe-btn" variant="light" onClick={this.deleteRecipe}>
-              Delete
-            </Button>
+      : <Container className="recipe">
+          <div className="action-bar">
+            <Form>
+              <Button className="recipe-btn" variant="light" onClick={this.displayForm}>
+                Edit
+              </Button>
+              <Button className="recipe-btn" variant="light" onClick={this.deleteRecipe}>
+                Delete
+              </Button>
+            </Form>
           </div>
           <h4>
             {this.state.name}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-export default class NewFoodItem extends Component {
+export default class FoodItemForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addNewItem(this.name.value, this.quantity.value)
@@ -13,11 +13,11 @@ export default class NewFoodItem extends Component {
 
   render() {
     return (
-      <div className="new-food-item">
-        <Form className="align-middle" onSubmit={this.handleSubmit}>
+      <div className="action-bar">
+        <Form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Name" ref={input => this.name = input}/>
           <input type="number" placeholder="Quantity" className="quantity" ref={input => this.quantity = input} defaultValue='1'/>
-          <Button size="sm" variant="light" type="submit">Add</Button>
+          <Button variant="light" type="submit">Add</Button>
         </Form>
       </div>
     )

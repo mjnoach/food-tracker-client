@@ -9,12 +9,10 @@ export default class FoodItem extends Component {
       mouseOver: false,
       name: this.props.name,
       quantity: this.props.quantity,
-      className: "food-item",
+      className: "",
       variant: "",
       edited: false
     }
-    this.nameInput = React.createRef();
-    this.quantityInput = React.createRef();
   }
 
   deleteItem = (e) => {
@@ -22,37 +20,35 @@ export default class FoodItem extends Component {
     axios.delete(`/food_items/${this.props.id}`)
       .then(response => {
         this.props.removeFoodItem(this.props.id);
-      })
-      .catch(error => {});
+      });
   }
 
   toggleFocusedOn = () => {
-    !this.props.focusLocked &&
-    this.setState({
-      mouseOver: true,
-      className: "food-item food-item-hover"
-    });
+    if (!this.props.focusLocked)
+      this.setState({
+        mouseOver: true,
+        className: "list-item-hover"
+      });
   }
 
   toggleFocusedOff = () => {
-    !this.props.focusLocked &&
-    this.setState({
-      mouseOver: false,
-      className: "food-item"
-    });
+    if (!this.props.focusLocked)
+      this.setState({
+        mouseOver: false,
+        className: ""
+      });
   }
 
   lockItemFocus = () => {
-    if (!this.props.focusLocked) {
+    if (!this.props.focusLocked)
       this.props.lockItemFocus();
-    }
   }
 
   unlockItemFocus = () => {
     this.props.unlockItemFocus();
     this.setState({
       mouseOver: false,
-      className: "food-item"
+      className: ""
     });
   }
 
@@ -75,11 +71,9 @@ export default class FoodItem extends Component {
 
   submitEditedItem = () => {
     if (this.state.edited) {
-      const name = this.nameInput.current;
-      const quantity = this.quantityInput.current;
       this.updateFoodItem({
-        [name.name]: name.value,
-        [quantity.name]: quantity.value
+        [this.name.name]: this.name.value,
+        [this.quantity.name]: this.quantity.value
       })
         .then(updated => {
           this.flashUpdateStatus("success");
@@ -106,7 +100,7 @@ export default class FoodItem extends Component {
     if (type === "error")
       type = "light";
     this.setState({variant: type});
-    setTimeout(() => this.setState({variant: ""}), 300);
+    setTimeout(() => this.setState({variant: ""}), 300);                        // TODO
   }
 
   handleInputChange = (e) => {
@@ -116,34 +110,28 @@ export default class FoodItem extends Component {
     });
   }
 
-  // foodItemWasEdited = () => {
-  //   return 
-  //     (this.state.name === this.props.name) || 
-  //     (this.state.quantity === this.props.quantity);
-  // }
-
   render() {
     return (
-      <ListGroup.Item className={this.state.className} variant={this.state.variant}
+      <ListGroup.Item className={"list-item " + this.state.className} variant={this.state.variant}
       onMouseMove={this.toggleFocusedOn} 
       onMouseLeave={this.toggleFocusedOff}>
         <Row className="align-items-center">
           <Col>
             {this.state.mouseOver
-              ? <input type="text" name="name" ref={this.nameInput} className="name" value={this.state.name} 
-              autoComplete="off" tabIndex='1' 
-              onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
-              onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}/>
+              ? <input type="text" name="name" ref={input => this.name = input} className="name" value={this.state.name} 
+                autoComplete="off" tabIndex='1' 
+                onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
+                onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}/>
               : <span className="name">
                   {this.state.name}
                 </span>}
           </Col>
           <Col className="text-center">
             {this.state.mouseOver
-              ? <input type="number" name="quantity" ref={this.quantityInput} className="quantity" value={this.state.quantity}  
-              autoComplete="off" tabIndex='2'
-              onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
-              onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}/>
+              ? <input type="number" name="quantity" ref={input => this.quantity = input} className="quantity" value={this.state.quantity}  
+                autoComplete="off" tabIndex='2'
+                onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
+                onFocus={this.lockItemFocus} onBlur={this.unlockItemFocus}/>
               : <span className="quantity">
                   {this.state.quantity}
                 </span>}

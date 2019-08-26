@@ -1,55 +1,5 @@
-.recipes-list {
-  padding-bottom: 100px;
-}
-
-.recipe-item {
-  transition: 0.3s all;
-  padding: 10px;
-}
-
-.recipe-item:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);  
-  z-index: 1;
-}
-
-.recipe-item-link,
-.recipe-item-link:hover {
+.recipes .list .link,
+.recipes .list .link:hover {
   text-decoration: none;
   color: #000;
-}
-
-.recipe-item .row {
-  height: 50px;    
-}
-
-.recipe-item .col {
-  padding-left: 25px;
-}
-
-.backdrop {
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  background-color: #000;
-}
-
-.btn-wrapper {
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
-  padding: 10px 320px 10px 10px;
-}
-
-.new-recipe-btn {
-  border: none;
-  outline: none;
-  background-color: #F9F9F9;
-  height: 42px;
-}
-
-.recipe-btn {
-  margin-right: 10px;
 }

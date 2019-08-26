@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import update from 'immutability-helper';
-import { Container, ListGroup, Button } from 'react-bootstrap';
-import { RecipeItem } from './RecipeItem';
+import { Container, ListGroup, Button, Form } from 'react-bootstrap';
+import RecipeItem from './RecipeItem';
 import RecipeForm from './RecipeForm';
 import '../../stylesheets/recipes.css';
 
@@ -19,8 +19,7 @@ export default class Recipes extends Component {
     axios.get('/recipes')
       .then(response => {
         this.setState({recipes: response.data});
-      })
-      .catch(error => {});
+      });
   }
 
   removeRecipe = (itemId) => {
@@ -46,21 +45,23 @@ export default class Recipes extends Component {
   }
 
   render() {
-    const recipes = this.state.recipes.map(item => (
+    const recipes = this.state.recipes.map(item => 
       <RecipeItem key={item.id} id={item.id} name={item.name} description={item.description} removeRecipe={this.removeRecipe}/>
-    ));
+    );
 
     return this.state.displayForm
-      ? <Container>
+      ? <Container className="recipe-form">
           <RecipeForm hideForm={this.hideForm} updateRecipesList={this.updateRecipesList}/>
         </Container>
-      : <Container>
-          <div className="btn-wrapper">
-            <Button className="new-recipe-btn" variant="light" onClick={this.displayForm}>
-              New Recipe
-            </Button>
+      : <Container className="recipes">
+          <div className="action-bar">
+            <Form>
+              <Button variant="light" onClick={this.displayForm}>
+                New Recipe
+              </Button>  
+            </Form>
           </div>
-          <ListGroup variant="flush" className="recipes-list">
+          <ListGroup variant="flush" className="list">
             {recipes}
           </ListGroup>
         </Container>

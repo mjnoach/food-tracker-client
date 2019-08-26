@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import axios from 'axios';
 import { Container, ListGroup } from 'react-bootstrap';
-import NewFoodItem from './NewFoodItem';
+import FoodItemForm from './FoodItemForm';
 import FoodItem from './FoodItem';
 import '../../stylesheets/supplies.css';
 
@@ -19,8 +19,7 @@ export default class Supplies extends Component {
     axios.get('/food_items')
       .then(response => {
         this.setState({supplies: response.data})
-      })
-      .catch(error => {});
+      });
   }
 
   addNewItem = (itemName, quantity) => {
@@ -33,8 +32,7 @@ export default class Supplies extends Component {
         .then(response => {
           this.updateSuppliesList(response.data);
           resolve(true);
-        })
-        .catch(error => {});
+        });
     });
   }
 
@@ -61,17 +59,15 @@ export default class Supplies extends Component {
   }
 
   render() {
-    const foodItems = this.state.supplies.map(item => {
-      return (
-        <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}
-        lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus} focusLocked={this.state.focusLocked}/>
-      )
-    });
+    const foodItems = this.state.supplies.map(item =>
+      <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}
+      lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus} focusLocked={this.state.focusLocked}/>
+    );
 
     return (
       <Container className="supplies">
-        <NewFoodItem addNewItem={this.addNewItem}/>
-        <ListGroup className="food-item-list" variant="flush">
+        <FoodItemForm addNewItem={this.addNewItem}/>
+        <ListGroup variant="flush" className="list">
           {foodItems}
         </ListGroup>
       </Container>
