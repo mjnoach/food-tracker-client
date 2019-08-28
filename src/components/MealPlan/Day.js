@@ -7,15 +7,13 @@ export default class Day extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      meals: [
-        {name: "Cake", id: 1}
-      ]
+      meals: this.props.meals || []
     }
   }
 
   removeMealItem = (itemId) => {
-    const supplies = this.state.meals.filter(item => item.id !== itemId);
-    this.setState({meals: supplies});
+    const meals = this.state.meals.filter(item => item.id !== itemId);
+    this.setState({meals: meals});
   }
 
   render() {

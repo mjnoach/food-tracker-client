@@ -16,6 +16,10 @@ export default class Recipes extends Component {
   }
 
   componentDidMount() {
+    this.fetchRecipes();
+  }
+
+  fetchRecipes = () => {
     axios.get('/recipes')
       .then(response => {
         this.setState({recipes: response.data});

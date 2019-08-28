@@ -16,6 +16,10 @@ export default class Supplies extends Component {
   }  
 
   componentDidMount() {
+    this.fetchFoodItems();
+  }
+
+  fetchFoodItems = () => {
     axios.get('/food_items')
       .then(response => {
         this.setState({supplies: response.data})

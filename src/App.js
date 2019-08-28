@@ -34,7 +34,7 @@ axios.interceptors.response.use(response => {
   error => {
     const path = error.response.config.url.replace(axios.defaults.baseURL, '');
     const method = error.response.config.method.toUpperCase();
-    console.log(method, path, '\n', error.response.data);
+    console.log(method, path, '\n', error);
     if(error.response.status === 401) {
       logOut('Your session has expired\nPlease log in');
     }
