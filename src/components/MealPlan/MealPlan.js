@@ -5,11 +5,21 @@ import Day from './Day';
 import MealForm from './MealForm';
 import '../../stylesheets/meal-plan.css';
 
+const weekdays = ["Monday", "Teusday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
 export default class MealPlan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      meals: []
+      mealPlan: {
+        Monday: [],
+        Teusday: [],
+        Wednesday: [],
+        Thursday: [],
+        Friday: [],
+        Saturday: [],
+        Sunday: []
+      }
     };
   }
 
@@ -20,31 +30,31 @@ export default class MealPlan extends Component {
   fetchMeals = () => {
     axios.get('/meals')
       .then(response => {
-        const meals = this.groupByDay(response.data);
-        this.setState({meals: meals});
-        console.log(this.state.meals);
+        const mealPlan = this.state.mealPlan;
+        for (const day in response.data)
+          mealPlan[day] = response.data[day];
+        this.setState({mealPlan: mealPlan});
       });
   }
 
-  groupByDay = (mealsArray) => {
-    return mealsArray.reduce((groupedMeals, meal) => {
-      (groupedMeals[meal.day] = groupedMeals[meal.day] || []).push(meal);
-      return groupedMeals;
-    }, {});
-  };
+  updateMealPlan = (meal) => {
+    const mealPlan = this.state.mealPlan;
+    mealPlan[meal.day].push(meal);
+    this.setState({mealPlan: mealPlan});
+  }
 
   render() {
-    const weekdays = ["Monday", "Teusday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const days = weekdays.map(weekday => {
-      return <option key={weekday}>{weekday}</option>
-    });
-    const mealPlan = weekdays.map(weekday => {
-      return <Day key={weekday} day={weekday} meals={this.state.meals[weekday]} />
-    });
+    const days = weekdays.map(weekday =>
+      <option key={weekday}>{weekday}</option>
+    );
+    const mealPlan = [];
+    for (const day in this.state.mealPlan) {
+      mealPlan.push(<Day key={day} day={day} meals={this.state.mealPlan[day]} />);
+    };
 
     return (
       <Container className="meal-plan">
-        <MealForm days={days} />
+        <MealForm days={days} updateMealPlan={this.updateMealPlan}/>
         {mealPlan}
       </Container>
     )

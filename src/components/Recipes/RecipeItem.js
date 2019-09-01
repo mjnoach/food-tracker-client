@@ -28,7 +28,8 @@ export default class RecipeItem extends Component {
   render() {
     return (
       <Link to={`/app/recipes/${this.props.id}`} className="link">
-        <ListGroup.Item className={"list-item " + this.state.className} onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
+        <ListGroup.Item className={"list-item " + this.state.className} 
+        onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
           <Row className="align-items-center">
             <Col>
               {this.props.name}

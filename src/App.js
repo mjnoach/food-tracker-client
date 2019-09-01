@@ -51,7 +51,7 @@ function App() {
         <Route path="/app/supplies" component={Supplies} />
         <Route exact path="/app/recipes" component={Recipes} />
         <Route path="/app/recipes/:id" component={Recipe} />
-        <Route path="/app/meal-plan" component={MealPlan} />
+        <Route path="/app/meal_plan" component={MealPlan} />
       </div>
     </Router>
   )

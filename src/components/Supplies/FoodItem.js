@@ -113,8 +113,7 @@ export default class FoodItem extends Component {
   render() {
     return (
       <ListGroup.Item className={"list-item " + this.state.className} variant={this.state.variant}
-      onMouseMove={this.toggleFocusedOn} 
-      onMouseLeave={this.toggleFocusedOff}>
+      onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
         <Row className="align-items-center">
           <Col>
             {this.state.mouseOver

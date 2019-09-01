@@ -40,8 +40,8 @@ export default class Supplies extends Component {
     });
   }
 
-  removeFoodItem = (itemId) => {
-    const supplies = this.state.supplies.filter(item => item.id !== itemId);
+  removeFoodItem = (deletedId) => {
+    const supplies = this.state.supplies.filter(item => item.id !== deletedId);
     this.setState({supplies: supplies});
   }
 

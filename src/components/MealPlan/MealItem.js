@@ -7,17 +7,15 @@ export default class MealItem extends Component {
     super(props);
     this.state = {
       mouseOver: false,
-      name: this.props.name,
       className: "",
-      variant: "",
     }
   }
 
   deleteItem = (e) => {
     e.stopPropagation();
-    axios.delete(`/food_items/${this.props.id}`)
+    axios.delete(`/meals/${this.props.id}`)
       .then(response => {
-        this.props.removeFoodItem(this.props.id);
+        this.props.removeMealItem(this.props.id);
       });
   }
 
@@ -37,13 +35,12 @@ export default class MealItem extends Component {
 
   render() {
     return (
-      <ListGroup.Item className={"list-item " + this.state.className} variant={this.state.variant}
-      onMouseMove={this.toggleFocusedOn} 
-      onMouseLeave={this.toggleFocusedOff}>
+      <ListGroup.Item className={"list-item " + this.state.className} 
+      onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
         <Row className="align-items-center">
           <Col>
             <span className="name">
-              {this.state.name}
+              {this.props.name}
             </span>
           </Col>
           <Col className="text-right">

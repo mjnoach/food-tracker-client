@@ -26,8 +26,8 @@ export default class Recipes extends Component {
       });
   }
 
-  removeRecipe = (itemId) => {
-    const recipes = this.state.recipes.filter(item => item.id !== itemId);
+  removeRecipe = (deletedId) => {
+    const recipes = this.state.recipes.filter(item => item.id !== deletedId);
     this.setState({recipes: recipes});
   }
 
