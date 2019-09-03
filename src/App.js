@@ -29,7 +29,7 @@ axios.interceptors.response.use(response => {
     const path = response.config.url.replace(axios.defaults.baseURL, '');
     const method = response.config.method.toUpperCase();
     console.log(method, path, '\n', response);
-    return response;
+    return response.data;
   },
   error => {
     const path = error.response.config.url.replace(axios.defaults.baseURL, '');

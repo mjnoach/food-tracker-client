@@ -21,9 +21,7 @@ class Recipes extends Component {
 
   fetchRecipes = () => {
     axios.get('/recipes')
-      .then(response => {
-        this.setState({recipes: response.data});
-      });
+      .then(data => this.setState({recipes: data}));
   }
 
   addRecipeToList = (recipe) => {

@@ -29,10 +29,10 @@ export default class MealPlan extends Component {
 
   fetchMeals = () => {
     axios.get('/meals')
-      .then(response => {
+      .then(data => {
         const mealPlan = this.state.mealPlan;
-        for (const day in response.data)
-          mealPlan[day] = response.data[day];
+        for (const day in data)
+          mealPlan[day] = data[day];
         this.setState({mealPlan: mealPlan});
       });
   }

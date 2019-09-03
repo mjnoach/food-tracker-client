@@ -20,9 +20,7 @@ class RecipeForm extends Component {
 
   fetchFoodItems = () => {
     axios.get('/food_items')
-      .then(response => {
-        this.setState({foodItems: response.data});
-      })
+      .then(data => this.setState({foodItems: data}));
   }
 
   recipeData = () => {
@@ -37,17 +35,15 @@ class RecipeForm extends Component {
 
   createRecipe = () => {
     axios.post('/recipes', this.recipeData())
-      .then(response => {
-        this.props.addRecipeToList(response.data);
+      .then(recipe => {
+        this.props.addRecipeToList(recipe);
         this.props.hideForm();
       })
   }
 
   updateRecipe = () => {
     axios.put(`/recipes/${this.props.id}`, this.recipeData())
-      .then(response => {
-        this.reloadPage();
-      });
+      .then(response => this.reloadPage());
   }
 
   reloadPage = () => {

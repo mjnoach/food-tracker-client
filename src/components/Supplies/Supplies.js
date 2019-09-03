@@ -16,26 +16,20 @@ class Supplies extends Component {
 
   componentDidMount() {
     this.fetchFoodItems();
-    // const supplies = this.props.fetchData('/food_items');
-    // this.setState({supplies: supplies});
   }
 
   fetchFoodItems = () => {
     axios.get('/food_items')
-      .then(response => {
-        this.setState({supplies: response.data})
-      });
+      .then(data => this.setState({supplies: data}));
   }
 
   createNewFoodItem = (itemName, quantity) => {
     let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
     return axios.post('/food_items', {
       name: name,
-      quantity: parseInt(quantity, 10)
+      quantity: parseInt(quantity)
     })
-      .then(response => {
-        this.addItemToList(response.data);
-      });
+      .then(foodItem => this.addItemToList(foodItem));
   }
 
   addItemToList = (item) => {

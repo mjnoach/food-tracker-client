@@ -16,9 +16,7 @@ class FoodItem extends Component {
   deleteItem = (e) => {
     e.stopPropagation();
     axios.delete(`/food_items/${this.props.id}`)
-      .then(response => {
-        this.props.removeItemFromList(this.props.id);
-      });
+      .then(response => this.props.removeItemFromList(this.props.id));
   }
 
   handleInputChange = (e) => {
@@ -36,12 +34,8 @@ class FoodItem extends Component {
   updateFoodItem = (editedProps) => {
     return new Promise((resolve, reject) => {
       axios.put(`/food_items/${this.props.id}`, editedProps)
-      .then(response => {
-        resolve(true);
-      })
-      .catch(error => {
-        reject(Object.keys(editedProps));
-      });
+      .then(response => resolve(true))
+      .catch(error => reject(Object.keys(editedProps)));
     });
   }
 
@@ -52,9 +46,7 @@ class FoodItem extends Component {
         [this.quantity.name]: this.quantity.value
       };
       this.updateFoodItem(editedProps)
-        .then(updated => {
-          this.flashUpdateStatus("success");
-        })
+        .then(updated => this.flashUpdateStatus("success"))
         .catch(failedProps => {
           this.undoEdit(failedProps);
           this.flashUpdateStatus("error");
@@ -67,8 +59,7 @@ class FoodItem extends Component {
 
   undoEdit = (failedProps) => {
     failedProps.forEach(item => 
-      this.setState({[item]: this.props[item]})
-    );
+      this.setState({[item]: this.props[item]}));
   }
 
   flashUpdateStatus = (type = "success") => {

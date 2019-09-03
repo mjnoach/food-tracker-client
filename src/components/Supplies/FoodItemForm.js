@@ -6,10 +6,12 @@ export default class FoodItemForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.createNewFoodItem(this.name.value, this.quantity.value)
-      .then(itemAdded => {
-        this.name.value = '';
-        this.quantity.value = '1';    
-      });
+      .then(itemAdded => this.clearInputFields());
+  }
+
+  clearInputFields = () => {
+    this.name.value = '';
+    this.quantity.value = '1';
   }
 
   render() {

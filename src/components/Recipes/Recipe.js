@@ -16,17 +16,17 @@ export default class Recipe extends Component {
   }
 
   componentDidMount() {
+    this.fetchRecipeData();
+  }
+
+  fetchRecipeData = () => {
     axios.get(`/recipes/${this.props.match.params.id}`)
-      .then(response => {
-        this.setState(response.data);
-      });
+      .then(data => this.setState(data));
   }
 
   deleteRecipe = () => {
     axios.delete(`/recipes/${this.state.id}`)
-      .then(response => {
-        this.props.history.push('/app/recipes');
-      });
+      .then(response => this.props.history.push('/app/recipes'));
   }
 
   toggleDisplayForm = () => {

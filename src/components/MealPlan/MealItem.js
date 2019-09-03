@@ -8,9 +8,7 @@ class MealItem extends Component {
   deleteItem = (e) => {
     e.stopPropagation();
     axios.delete(`/meals/${this.props.id}`)
-      .then(response => {
-        this.props.removeMealFromList(this.props.id);
-      });
+      .then(response => this.props.removeMealFromList(this.props.id));
   }
 
   render() {
