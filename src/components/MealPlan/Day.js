@@ -10,8 +10,9 @@ export default class Day extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({meals: props.meals });
+  componentDidUpdate(prevProps) {
+    if (this.props.meals !== prevProps.meals)
+      this.setState({meals: this.props.meals});
   }
 
   removeMealItem = (deletedId) => {

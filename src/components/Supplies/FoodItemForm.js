@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 export default class FoodItemForm extends Component {
+  
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addNewItem(this.name.value, this.quantity.value)
+    this.props.createNewFoodItem(this.name.value, this.quantity.value)
       .then(itemAdded => {
         this.name.value = '';
         this.quantity.value = '1';    

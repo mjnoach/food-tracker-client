@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from 'axios';
-import { logOut } from './user_session';
+import logOut from './log_out';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Welcome from './components/Welcome/Welcome';
 import Home from './components/Home';
 import Supplies from './components/Supplies/Supplies';

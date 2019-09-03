@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { Formik } from 'formik';
 import * as yup from 'yup';
-import { logIn, fetchUserData } from '../../user_session';
+import { Formik } from 'formik';
+import { withRouter } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
+import withUserSession from '../withUserSession';
 
 const schema = yup.object({
   name: yup.string()
@@ -24,25 +24,21 @@ const schema = yup.object({
 });
 
 class SignUpForm extends Component {
+
   signUp = (values) => {
-    return new Promise((resolve, reject) => {
-      axios.post('/users', values)
-        .then(response => {
-          let data = JSON.parse(response.config.data);
-          let email = data.email;
-          let password = data.password;
-          resolve([email, password]);
-        })
-        .catch(error => {
-          reject(false);
-        });
-    });
+    return axios.post('/users', values)
+      .then(response => {
+        let data = JSON.parse(response.config.data);
+        let email = data.email;
+        let password = data.password;
+        return [email, password];
+      });
   }
 
   handleSubmit(values) {
     this.signUp(values)
-      .then(([email, password]) => logIn(email, password)
-        .then(loggedIn => fetchUserData()
+      .then(([email, password]) => this.props.logIn(email, password)
+        .then(loggedIn => this.props.fetchUserData()
           .then(userData => this.props.history.push('/app'))));
   }
 
@@ -54,10 +50,10 @@ class SignUpForm extends Component {
           this.handleSubmit(values);
         }}
         initialValues={{
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: '',
+          name: 'Test',
+          email: 'test@mail.com',
+          password: 'password',
+          password_confirmation: 'password',
         }}
       >
         {({
@@ -142,4 +138,4 @@ class SignUpForm extends Component {
   }
 }
 
-export default withRouter(SignUpForm)
+export default withRouter(withUserSession(SignUpForm));

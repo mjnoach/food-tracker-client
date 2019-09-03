@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { logIn, fetchUserData } from '../../user_session';
 import { Form, Button } from 'react-bootstrap';
+import withUserSession from '../withUserSession';
 
 class LogInForm extends Component {
+  
   handleSubmit = (e) => {
     e.preventDefault();
-    logIn(this.email.value, this.password.value)
-      .then(loggedIn => fetchUserData()
+    this.props.logIn(this.email.value, this.password.value)
+      .then(loggedIn => this.props.fetchUserData()
         .then(userData => this.props.history.push('/app')));
   }
 
@@ -24,4 +25,4 @@ class LogInForm extends Component {
   }
 }
 
-export default withRouter(LogInForm)
+export default withRouter(withUserSession(LogInForm));

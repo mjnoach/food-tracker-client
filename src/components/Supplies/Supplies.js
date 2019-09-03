@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import update from 'immutability-helper';
 import axios from 'axios';
 import { Container, ListGroup } from 'react-bootstrap';
 import FoodItemForm from './FoodItemForm';
 import FoodItem from './FoodItem';
+import withList from '../withList';
 import '../../stylesheets/supplies.css';
 
-export default class Supplies extends Component {
+class Supplies extends Component {
   constructor(props) {
     super(props);
     this.state = {
       supplies: [],
-      focusLocked: false
     };
-  }  
+  }
 
   componentDidMount() {
     this.fetchFoodItems();
+    // const supplies = this.props.fetchData('/food_items');
+    // this.setState({supplies: supplies});
   }
 
   fetchFoodItems = () => {
@@ -26,51 +27,33 @@ export default class Supplies extends Component {
       });
   }
 
-  addNewItem = (itemName, quantity) => {
-    return new Promise((resolve, reject) => {
+  createNewFoodItem = (itemName, quantity) => {
       let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
-      axios.post('/food_items', {
+      return axios.post('/food_items', {
         name: name,
         quantity: parseInt(quantity, 10)
       })
         .then(response => {
-          this.updateSuppliesList(response.data);
-          resolve(true);
+          const supplies = this.props.addItemToList(response.data, this.state.supplies);
+          this.setState({supplies: supplies});
         });
-    });
   }
 
-  removeFoodItem = (deletedId) => {
-    const supplies = this.state.supplies.filter(item => item.id !== deletedId);
+  removeItemFromList = (deletedId) => {
+    const supplies = this.props.removeItemFromList(deletedId, this.state.supplies);
     this.setState({supplies: supplies});
-  }
-
-  updateSuppliesList = (item) => {
-    const supplies = update(this.state.supplies, {$push: [item]});
-    this.setState({supplies: supplies.sort(function(a,b) {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    })});
-  }
-
-  lockItemFocus = () => {
-    this.setState({focusLocked: true});
-  }
-
-  unlockItemFocus = () => {
-    this.setState({focusLocked: false});
   }
 
   render() {
     const foodItems = this.state.supplies.map(item =>
-      <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} removeFoodItem={this.removeFoodItem}
-      lockItemFocus={this.lockItemFocus} unlockItemFocus={this.unlockItemFocus} focusLocked={this.state.focusLocked}/>
+      <FoodItem key={item.id} name={item.name} quantity={item.quantity} id={item.id} 
+      toggleItemFocus={this.props.toggleItemFocus} focusLocked={this.props.focusLocked}
+      removeItemFromList={this.removeItemFromList}/>
     );
 
     return (
       <Container className="supplies">
-        <FoodItemForm addNewItem={this.addNewItem}/>
+        <FoodItemForm createNewFoodItem={this.createNewFoodItem}/>
         <ListGroup variant="flush" className="list">
           {foodItems}
         </ListGroup>
@@ -78,3 +61,5 @@ export default class Supplies extends Component {
     )
   }
 }
+
+export default withList(Supplies);
