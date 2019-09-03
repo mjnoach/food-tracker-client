@@ -7,7 +7,6 @@ class RecipeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: !!this.props.editing,
       name: this.props.name,
       description: this.props.description,
       foodItems: [],
@@ -19,61 +18,6 @@ class RecipeForm extends Component {
     this.fetchFoodItems();
   }
 
-  createRecipe = () => {
-    const name = this.name.value.charAt(0).toUpperCase() + this.name.value.slice(1).toLowerCase();
-    const description = this.description.value
-      ? this.description.value.charAt(0).toUpperCase() + this.description.value.slice(1).toLowerCase()
-      : null;
-    axios.post('/recipes', {
-      name: name,
-      description: description,
-      ingredients: this.state.ingredients
-    })
-      .then(response => {
-        this.props.addRecipeToList(response.data);
-        this.props.hideForm();
-      })
-  }
-
-  updateRecipe = (obj) => {
-    return new Promise((resolve, reject) => {
-      axios.put(`/recipes/${this.props.id}`, obj)
-      .then(response => {
-        resolve(true);
-      })
-      .catch(error => {
-        reject(Object.keys(obj));
-      });
-    });
-  }
-
-  handleEdit = () => {
-    this.updateRecipe({
-      name: this.name.value,
-      description: this.description.value,
-      ingredients: this.state.ingredients
-    })
-      .then(updated => {
-        const url = window.location.pathname;
-        this.props.history.push({ pathname: "/empty" });
-        this.props.history.replace({ pathname: url });
-      })
-  }
-
-  handleInputChange = (e) => {
-    if (this.state.editing)
-      this.setState({
-        [e.target.name]: e.target.value
-      });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.state.editing
-      ? this.handleEdit()
-      : this.createRecipe()
-  }
-
   fetchFoodItems = () => {
     axios.get('/food_items')
       .then(response => {
@@ -81,21 +25,57 @@ class RecipeForm extends Component {
       })
   }
 
-  handleChange = (e) => {
+  recipeData = () => {
+    const data = {};
+    data.name = this.name.value.charAt(0).toUpperCase() + this.name.value.slice(1).toLowerCase();
+    data.description = this.description.value
+      ? this.description.value.charAt(0).toUpperCase() + this.description.value.slice(1).toLowerCase()
+      : null;
+    data.ingredients = this.state.ingredients;
+    return data;
+  }
+
+  createRecipe = () => {
+    axios.post('/recipes', this.recipeData())
+      .then(response => {
+        this.props.addRecipeToList(response.data);
+        this.props.hideForm();
+      })
+  }
+
+  updateRecipe = () => {
+    axios.put(`/recipes/${this.props.id}`, this.recipeData())
+      .then(response => {
+        this.reloadPage();
+      });
+  }
+
+  reloadPage = () => {
+    const url = window.location.pathname;
+    this.props.history.push({ pathname: "/empty" });
+    this.props.history.replace({ pathname: url });
+  }
+
+  handleSubmit = (e) => {
     e.preventDefault();
+    this.props.editing ? this.updateRecipe() : this.createRecipe();
   }
 
   handleClick = (e) => {
-    let selected = this.state.ingredients;
+    let ingrArr = this.state.ingredients;
     const ingrId = e.target.value;
-    if (selected.includes(ingrId)) {
-      selected = selected.filter(item => item !== ingrId);
-      this.setState({ingredients: selected});
-    }
-    else {
-      selected.push(ingrId);
-      this.setState({ingredients: selected});
-    }
+    if (ingrArr.includes(ingrId))
+      ingrArr = ingrArr.filter(item => item !== ingrId);
+    else
+      ingrArr.push(ingrId);
+    this.setState({ingredients: ingrArr});
+  }
+
+  handleInputChange = (e) => {
+    if (this.props.editing)
+      this.setState({
+        [e.target.name]: e.target.value
+      });
   }
 
   render() {
@@ -107,24 +87,23 @@ class RecipeForm extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Group>
           <Form.Label>Recipe name</Form.Label>
-          <Form.Control type="text" name="name" ref={input => this.name = input} defaultValue={this.props.name}
-           onChange={this.handleInputChange}/>
+          <Form.Control type="text" name="name" ref={input => this.name = input} 
+          defaultValue={this.props.name} onChange={this.handleInputChange}/>
         </Form.Group>
         <Form.Group>
           <Form.Label>Recipe description</Form.Label>
-          <Form.Control as="textarea" rows="3" name="description" ref={input => this.description = input} defaultValue={this.props.description}
-          onChange={this.handleInputChange}/>
+          <Form.Control as="textarea" rows="3" name="description" ref={input => this.description = input} 
+          defaultValue={this.props.description} onChange={this.handleInputChange}/>
         </Form.Group>
         <Form.Group>
           <Form.Label>Ingredients</Form.Label>
-          <Form.Control as="select" multiple name="foodItems" value={this.state.ingredients} onChange={this.handleChange} ref={input => this.foodItems = input}>
+          <Form.Control as="select" multiple name="foodItems" value={this.state.ingredients} 
+          onChange={e => e.preventDefault()} ref={input => this.foodItems = input}>
             {foodItems}
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          {this.state.editing
-            ? 'Apply changes'
-            : 'Add recipe'}
+          {this.props.editing ? 'Apply changes' : 'Add recipe'}
         </Button>
       </Form>
     )
