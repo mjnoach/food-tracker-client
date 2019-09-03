@@ -30,10 +30,9 @@ class RecipeForm extends Component {
       ingredients: this.state.ingredients
     })
       .then(response => {
-        this.props.updateRecipesList(response.data);
+        this.props.addRecipeToList(response.data);
         this.props.hideForm();
       })
-      .catch(error => {});
   }
 
   updateRecipe = (obj) => {
@@ -59,7 +58,6 @@ class RecipeForm extends Component {
         this.props.history.push({ pathname: "/empty" });
         this.props.history.replace({ pathname: url });
       })
-      .catch({});
   }
 
   handleInputChange = (e) => {
@@ -81,7 +79,6 @@ class RecipeForm extends Component {
       .then(response => {
         this.setState({foodItems: response.data});
       })
-      .catch(error => {});
   }
 
   handleChange = (e) => {

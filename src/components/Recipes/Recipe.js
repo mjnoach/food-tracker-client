@@ -31,11 +31,8 @@ export default class Recipe extends Component {
   deleteRecipe = () => {
     axios.delete(`/recipes/${this.state.id}`)
       .then(response => {
-        console.log('test');
         this.props.history.push('/app/recipes');
-        this.props.removeRecipe(this.state.id);
-      })
-      .catch(error => {});
+      });
   }
 
   displayForm = () => {

@@ -16,7 +16,6 @@ const withList = Component =>
     }
 
     addItemToList = (item, array, sortByName = true) => {
-      console.log(Component.state);
       const updatedArray = update(array, {$push: [item]});
       sortByName && this.sortItemsByName(updatedArray);
       return updatedArray;

@@ -1,35 +1,14 @@
 import React, { Component } from 'react';
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import withHover from '../withHover';
 
-export default class RecipeItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mouseOver: false,
-      className: ""
-    };
-  }
-
-  toggleFocusedOn = () => {
-    this.setState({
-      mouseOver: true,
-      className: "list-item-hover"
-    });
-  }
-
-  toggleFocusedOff = () => {
-    this.setState({
-      mouseOver: false,
-      className: ""
-    });
-  }
-
+class RecipeItem extends Component {
   render() {
     return (
       <Link to={`/app/recipes/${this.props.id}`} className="link">
-        <ListGroup.Item className={"list-item " + this.state.className} 
-        onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
+        <ListGroup.Item className={"list-item " + this.props.hoverStyle} 
+        onMouseMove={this.props.toggleHoverOn} onMouseLeave={this.props.toggleHoverOff}>
           <Row className="align-items-center">
             <Col>
               {this.props.name}
@@ -40,3 +19,5 @@ export default class RecipeItem extends Component {
     )
   }
 }
+
+export default withHover(RecipeItem);

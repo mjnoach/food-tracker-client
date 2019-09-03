@@ -28,15 +28,15 @@ class Supplies extends Component {
   }
 
   createNewFoodItem = (itemName, quantity) => {
-      let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
-      return axios.post('/food_items', {
-        name: name,
-        quantity: parseInt(quantity, 10)
-      })
-        .then(response => {
-          const supplies = this.props.addItemToList(response.data, this.state.supplies);
-          this.setState({supplies: supplies});
-        });
+    let name = itemName.charAt(0).toUpperCase() + itemName.slice(1).toLowerCase();
+    return axios.post('/food_items', {
+      name: name,
+      quantity: parseInt(quantity, 10)
+    })
+      .then(response => {
+        const supplies = this.props.addItemToList(response.data, this.state.supplies);
+        this.setState({supplies: supplies});
+      });
   }
 
   removeItemFromList = (deletedId) => {
