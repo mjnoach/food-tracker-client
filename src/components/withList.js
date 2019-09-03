@@ -10,10 +10,10 @@ const withList = Component =>
       }
     }
 
-    removeItemFromList = (deletedId, array) => {
-      const updatedArray = array.filter(item => item.id !== deletedId);
-      return updatedArray;
-    }
+    // removeItemFromList = (deletedId, array) => {
+    //   const updatedArray = array.filter(item => item.id !== deletedId);
+    //   return updatedArray;
+    // }
 
     addItemToList = (item, array, sortByName = true) => {
       const updatedArray = update(array, {$push: [item]});

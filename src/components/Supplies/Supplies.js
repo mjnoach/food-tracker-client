@@ -34,13 +34,17 @@ class Supplies extends Component {
       quantity: parseInt(quantity, 10)
     })
       .then(response => {
-        const supplies = this.props.addItemToList(response.data, this.state.supplies);
-        this.setState({supplies: supplies});
+        this.addItemToList(response.data);
       });
   }
 
+  addItemToList = (item) => {
+    const supplies = this.props.addItemToList(item, this.state.supplies);
+    this.setState({supplies: supplies});
+  }
+
   removeItemFromList = (deletedId) => {
-    const supplies = this.props.removeItemFromList(deletedId, this.state.supplies);
+    const supplies = this.state.supplies.filter(item => item.id !== deletedId);
     this.setState({supplies: supplies});
   }
 

@@ -1,42 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { ListGroup, Row, Col, Button } from 'react-bootstrap';
+import withHover from '../withHover';
 
-export default class MealItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mouseOver: false,
-      className: "",
-    }
-  }
+class MealItem extends Component {
 
   deleteItem = (e) => {
     e.stopPropagation();
     axios.delete(`/meals/${this.props.id}`)
       .then(response => {
-        this.props.removeMealItem(this.props.id);
+        this.props.removeMealFromList(this.props.id);
       });
-  }
-
-  toggleFocusedOn = () => {
-    this.setState({
-      mouseOver: true,
-      className: "list-item-hover"
-    });
-  }
-
-  toggleFocusedOff = () => {
-    this.setState({
-      mouseOver: false,
-      className: ""
-    });
   }
 
   render() {
     return (
-      <ListGroup.Item className={"list-item " + this.state.className} 
-      onMouseMove={this.toggleFocusedOn} onMouseLeave={this.toggleFocusedOff}>
+      <ListGroup.Item className={"list-item " + this.props.hoverStyle} 
+      onMouseMove={this.props.toggleHoverOn} onMouseLeave={this.props.toggleHoverOff}>
         <Row className="align-items-center">
           <Col>
             <span className="name">
@@ -44,7 +24,7 @@ export default class MealItem extends Component {
             </span>
           </Col>
           <Col className="text-right">
-            {this.state.mouseOver && 
+            {this.props.mouseOver && 
             <Button size="sm" variant="danger" type="submit" onClick={this.deleteItem}>
               delete
             </Button>}
@@ -54,3 +34,5 @@ export default class MealItem extends Component {
     )
   }
 }
+
+export default withHover(MealItem);

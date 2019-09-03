@@ -15,14 +15,14 @@ export default class Day extends Component {
       this.setState({meals: this.props.meals});
   }
 
-  removeMealItem = (deletedId) => {
+  removeMealFromList = (deletedId) => {
     const meals = this.state.meals.filter(item => item.id !== deletedId);
     this.setState({meals: meals});
   }
 
   render() {
     const meals = this.state.meals.map(meal => {
-      return <MealItem key={meal.id} id={meal.id} name={meal.recipe.name} removeMealItem={this.removeMealItem}/>
+      return <MealItem key={meal.id} id={meal.id} name={meal.recipe.name} removeMealFromList={this.removeMealFromList}/>
     });
 
     return (

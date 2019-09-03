@@ -37,7 +37,7 @@ export default class MealPlan extends Component {
       });
   }
 
-  updateMealPlan = (meal) => {
+  addMealToList = (meal) => {
     const mealPlan = this.state.mealPlan;
     mealPlan[meal.day].push(meal);
     this.setState({mealPlan: mealPlan});
@@ -54,9 +54,10 @@ export default class MealPlan extends Component {
 
     return (
       <Container className="meal-plan">
-        <MealForm days={days} updateMealPlan={this.updateMealPlan}/>
+        <MealForm days={days} addMealToList={this.addMealToList}/>
         {mealPlan}
       </Container>
     )
   }
 }
+

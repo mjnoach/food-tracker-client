@@ -26,8 +26,8 @@ class Recipes extends Component {
       });
   }
 
-  addRecipeToList = (item) => {
-    const recipes = this.props.addItemToList(item, this.state.recipes);
+  addRecipeToList = (recipe) => {
+    const recipes = this.props.addItemToList(recipe, this.state.recipes);
     this.setState({recipes: recipes});
   }
 
