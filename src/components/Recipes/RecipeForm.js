@@ -20,7 +20,7 @@ class RecipeForm extends Component {
 
   fetchFoodItems = () => {
     axios.get('/food_items')
-      .then(data => this.setState({foodItems: data}));
+      .then(response => this.setState({foodItems: response.data}));
   }
 
   inputData = () => {
@@ -36,7 +36,7 @@ class RecipeForm extends Component {
   createRecipe = () => {
     axios.post('/recipes', this.inputData())
       .then(recipe => {
-        this.props.addRecipeToList(recipe);
+        this.props.addRecipeToList(recipe.data);
         this.props.hideForm();
       })
   }

@@ -20,7 +20,7 @@ class Supplies extends Component {
 
   fetchFoodItems = () => {
     axios.get('/food_items')
-      .then(data => this.setState({supplies: data}));
+      .then(response => this.setState({supplies: response.data}));
   }
 
   createNewFoodItem = (itemName, quantity) => {
@@ -29,7 +29,7 @@ class Supplies extends Component {
       name: name,
       quantity: parseInt(quantity)
     })
-      .then(foodItem => this.addItemToList(foodItem));
+      .then(foodItem => this.addItemToList(foodItem.data));
   }
 
   addItemToList = (item) => {

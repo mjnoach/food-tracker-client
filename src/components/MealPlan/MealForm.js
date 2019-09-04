@@ -16,7 +16,7 @@ export default class MealForm extends Component {
 
   fetchRecipes = () => {
     axios.get('/recipes')
-      .then(data => this.setState({recipes: data}));
+      .then(response => this.setState({recipes: response.data}));
   }
 
   addMeal = (e) => {
@@ -25,7 +25,7 @@ export default class MealForm extends Component {
       day: this.day.value,
       recipe: this.recipe.value
     })
-      .then(meal => this.props.addMealToList(meal));
+      .then(meal => this.props.addMealToList(meal.data));
   }
 
   render() {

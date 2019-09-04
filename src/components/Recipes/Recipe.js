@@ -21,7 +21,7 @@ export default class Recipe extends Component {
 
   fetchRecipeData = () => {
     axios.get(`/recipes/${this.props.match.params.id}`)
-      .then(data => this.setState(data));
+      .then(response => this.setState(response.data));
   }
 
   deleteRecipe = () => {

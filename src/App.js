@@ -17,9 +17,8 @@ axios.interceptors.request.use(
   config => {
     if (config.baseURL === process.env.REACT_APP_API_URL && !config.headers.Authorization) {
       const token = sessionStorage.getItem('token');
-      if (token) {
+      if (token)
         config.headers.Authorization = token;
-      }
     }
     return config;
   }, null
@@ -29,7 +28,7 @@ axios.interceptors.response.use(response => {
     const path = response.config.url.replace(axios.defaults.baseURL, '');
     const method = response.config.method.toUpperCase();
     console.log(method, path, '\n', response);
-    return response.data;
+    return response;
   },
   error => {
     const path = error.response.config.url.replace(axios.defaults.baseURL, '');
