@@ -3,6 +3,7 @@ import Header from './Header';
 import Dashboard from './Dashboard';
 
 const Home = () =>
+
   <div>
     <Header />
     <Dashboard />

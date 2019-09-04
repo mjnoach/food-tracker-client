@@ -39,13 +39,17 @@ class FoodItem extends Component {
     });
   }
 
+  inputData = () => {
+    const data = {
+      name: this.name.value,
+      quantity: this.quantity.value
+    }
+    return data;
+  }
+
   submitEditedItem = () => {
     if (this.state.edited) {
-      const editedProps = {
-        [this.name.name]: this.name.value,
-        [this.quantity.name]: this.quantity.value
-      };
-      this.updateFoodItem(editedProps)
+      this.updateFoodItem(this.inputData())
         .then(updated => this.flashUpdateStatus("success"))
         .catch(failedProps => {
           this.undoEdit(failedProps);

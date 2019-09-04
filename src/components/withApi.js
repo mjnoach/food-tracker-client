@@ -16,7 +16,7 @@ const withApi = Component =>
 
     render() {
       return (
-        <Component {...this.props} getData={this.getData}/>
+        <Component {...this.props} getData={this.getData} postData={this.postData}/>
       )
     }
   }

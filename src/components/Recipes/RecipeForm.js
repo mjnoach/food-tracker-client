@@ -23,7 +23,7 @@ class RecipeForm extends Component {
       .then(data => this.setState({foodItems: data}));
   }
 
-  recipeData = () => {
+  inputData = () => {
     const data = {};
     data.name = this.name.value.charAt(0).toUpperCase() + this.name.value.slice(1).toLowerCase();
     data.description = this.description.value
@@ -34,7 +34,7 @@ class RecipeForm extends Component {
   }
 
   createRecipe = () => {
-    axios.post('/recipes', this.recipeData())
+    axios.post('/recipes', this.inputData())
       .then(recipe => {
         this.props.addRecipeToList(recipe);
         this.props.hideForm();
@@ -42,7 +42,7 @@ class RecipeForm extends Component {
   }
 
   updateRecipe = () => {
-    axios.put(`/recipes/${this.props.id}`, this.recipeData())
+    axios.put(`/recipes/${this.props.id}`, this.inputData())
       .then(response => this.reloadPage());
   }
 

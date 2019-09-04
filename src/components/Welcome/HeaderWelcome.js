@@ -3,6 +3,7 @@ import { Navbar, Container } from 'react-bootstrap';
 import LogInForm from './LogInForm'
 
 const HeaderWelcome = () =>
+
   <Navbar expand="lg">
     <Container>
       <Navbar.Brand href="#home">
