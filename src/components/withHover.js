@@ -1,7 +1,7 @@
 import React from 'react';
 
 const withHover = Component =>
-  class extends React.Component {
+  class withHover extends React.Component {
     constructor(props) {
       super(props);
       this.state = {

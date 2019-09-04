@@ -1,22 +1,57 @@
 import React from 'react';
 import axios from 'axios';
 
-const withApi = Component =>
-  class extends React.Component {
+const withApi = (Component, componentClass) =>
+  class withApi extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        supplies: [],
+        recipes: [],
+        meals: [],
+        groceries: [],
+      }
+    }
 
-    getData = (endpoint) => {
+    apiGet = (endpoint) => {
       return axios.get(endpoint)
         .then(response => response.data);
     }
 
-    postData = (endpoint, data) => {
+    apiPost = (endpoint, data) => {
       return axios.post(endpoint, data)
         .then(response => response.data);
     }
 
+    apiDelete = (endpoint, id) => {
+      return axios.delete(`${endpoint}/${id}`)
+        // .then(response => true);
+    }
+
+    apiUpdate = (endpoint, id, data) => {
+      return axios.put(`${endpoint}/${id}`, data)
+        // .then(response => true);
+    }
+
     render() {
+      const extraProps = {};
+      switch(componentClass) {
+        case 'Supplies':
+          extraProps.supplies = this.state.supplies;
+          break;
+        case 'Recipes':
+          extraProps.recipes = this.state.recipes;
+          break;
+        case 'Meals':
+          extraProps.meals = this.state.meals;
+          break;
+        case 'ShoppingList':
+          extraProps.groceries = this.state.groceries;
+          break;
+        default: ;
+      }
       return (
-        <Component {...this.props} getData={this.getData} postData={this.postData}/>
+        <Component {...this.props} {...extraProps} apiGet={this.apiGet} apiPost={this.apiPost}/>
       )
     }
   }

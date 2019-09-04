@@ -4,6 +4,7 @@ import { Container, ListGroup } from 'react-bootstrap';
 import FoodItemForm from './FoodItemForm';
 import FoodItem from './FoodItem';
 import withList from '../withList';
+import withApi from '../withApi';
 import '../../stylesheets/supplies.css';
 
 class Supplies extends Component {
@@ -60,4 +61,4 @@ class Supplies extends Component {
   }
 }
 
-export default withList(Supplies);
+export default withApi(withList(Supplies), 'Supplies');

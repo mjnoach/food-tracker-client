@@ -2,7 +2,7 @@ import React from 'react';
 import update from 'immutability-helper';
 
 const withList = Component =>
-  class extends React.Component {
+  class withList extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
