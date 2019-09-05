@@ -6,10 +6,12 @@ const withApi = (Component, componentClass) =>
     constructor(props) {
       super(props);
       this.state = {
+        receivedResponse: false,
         supplies: [],
         recipes: [],
         meals: [],
         groceries: [],
+        data: {}
       }
     }
 
@@ -50,9 +52,13 @@ const withApi = (Component, componentClass) =>
           break;
         default: ;
       }
-      return (
-        <Component {...this.props} {...extraProps} apiGet={this.apiGet} apiPost={this.apiPost}/>
-      )
+      return this.state.receivedResponse
+        ?
+          <Component {...this.props} {...extraProps} apiGet={this.apiGet} apiPost={this.apiPost}/>
+        :
+          <div>
+            Loading...
+          </div>
     }
   }
 

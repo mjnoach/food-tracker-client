@@ -40,22 +40,22 @@ class Recipes extends Component {
 
     return this.state.displayForm
       ? 
-      <Container className="recipe-form">
-        <RecipeForm hideForm={this.toggleDisplayForm} addRecipeToList={this.addRecipeToList}/>
-      </Container>
+        <Container className="recipe-form">
+          <RecipeForm hideForm={this.toggleDisplayForm} addRecipeToList={this.addRecipeToList}/>
+        </Container>
       : 
-      <Container className="recipes">
-        <div className="action-bar">
-          <Form>
-            <Button variant="light" onClick={this.toggleDisplayForm}>
-              New Recipe
-            </Button>  
-          </Form>
-        </div>
-        <ListGroup variant="flush" className="list">
-          {recipes}
-        </ListGroup>
-      </Container>
+        <Container className="recipes">
+          <div className="action-bar">
+            <Form>
+              <Button variant="light" onClick={this.toggleDisplayForm}>
+                New Recipe
+              </Button>  
+            </Form>
+          </div>
+          <ListGroup variant="flush" className="list">
+            {recipes}
+          </ListGroup>
+        </Container>
   }
 }
 

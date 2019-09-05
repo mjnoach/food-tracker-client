@@ -80,21 +80,25 @@ class FoodItem extends Component {
         <Row className="align-items-center">
           <Col>
             {this.props.mouseOver
-              ? <input type="text" name="name" ref={input => this.name = input} className="name" value={this.state.name} 
+              ? 
+                <input type="text" name="name" ref={input => this.name = input} className="name" value={this.state.name} 
                 autoComplete="off" tabIndex='1' 
                 onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
                 onFocus={this.props.lockFocus} onBlur={this.props.unlockFocus}/>
-              : <span className="name">
+              : 
+                <span className="name">
                   {this.state.name}
                 </span>}
           </Col>
           <Col className="text-center">
             {this.props.mouseOver
-              ? <input type="number" name="quantity" ref={input => this.quantity = input} className="quantity" value={this.state.quantity}  
+              ? 
+                <input type="number" name="quantity" ref={input => this.quantity = input} className="quantity" value={this.state.quantity}  
                 autoComplete="off" tabIndex='2'
                 onChange={this.handleInputChange} onKeyDown={this.handleKeyDown}
                 onFocus={this.props.lockFocus} onBlur={this.props.unlockFocus}/>
-              : <span className="quantity">
+              : 
+                <span className="quantity">
                   {this.state.quantity}
                 </span>}
           </Col>
